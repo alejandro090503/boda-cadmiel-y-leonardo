@@ -4343,7 +4343,8 @@ function ambientWind(){
   var nieblas=document.querySelectorAll('.lp-niebla');
   if(nieblas.length){var w=512,h=160,cv=document.createElement('canvas');cv.width=w;cv.height=h;var g=cv.getContext('2d'),tono=C.niebla||'236,240,246';
     function blob(x,y,r,a){var gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,'rgba('+tono+','+a+')');gr.addColorStop(1,'rgba('+tono+',0)');g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,6.29);g.fill()}
-    for(var i=0;i<140;i++){var X=Math.random()*w,Y=h*.35+Math.random()*h*.6,R=20+Math.random()*60,A=.05+Math.random()*.12;blob(X,Y,R,A);blob(X-w,Y,R,A);blob(X+w,Y,R,A)}
+    /* blobs dentro del alto de la textura: ninguna orilla queda cortada en seco */
+    for(var i=0;i<150;i++){var X=Math.random()*w,Y=h*.32+Math.random()*h*.36,R=16+Math.random()*(Math.min(Y,h-Y)-6),A=.05+Math.random()*.12;blob(X,Y,R,A);blob(X-w,Y,R,A);blob(X+w,Y,R,A)}
     var url='url('+cv.toDataURL()+')';nieblas.forEach(function(n){for(var k=0;k<3;k++){var l=document.createElement('i');l.style.backgroundImage=url;n.appendChild(l)}})}
 
   /* 14 · seda iluminada: UN contexto WebGL compartido que dibuja cada sección visible y la copia a su canvas 2D */
