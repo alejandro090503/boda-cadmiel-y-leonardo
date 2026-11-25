@@ -1961,6 +1961,15 @@ body.rg-locked{overflow:hidden;overscroll-behavior:none}
   .rg-cta{animation:none}
   .rg-card,.rg-backdrop,.rg-lid,.rg-box{transition:none}
 }
+/* ===== Apertura y apariciones suaves ===== */
+#hero .h-names{display:flex;flex-direction:column;align-items:center;gap:0;line-height:1.15}
+#hero .h-names .h-amp{display:block;font-family:'Great Vibes',cursive;font-style:normal;text-transform:none;letter-spacing:0;font-size:1.5em;line-height:1;margin:2px 0;color:#7A5A33!important;-webkit-text-fill-color:#7A5A33!important}
+#elyMenuBtn{transition:opacity 1.6s ease 1.2s!important}
+.vinyl-btn{transition:opacity 1.6s ease 1.4s,transform 1.6s cubic-bezier(.2,.7,.2,1) 1.4s!important}
+html.dcx-js #dresscode .dcx-rv,html.itx-js #itinerary .itx-rv{transition:opacity 1.4s ease,transform 1.4s cubic-bezier(.25,.6,.3,1)!important}
+.sec-medal{transition:none}
+@media (prefers-reduced-motion:reduce){#elyMenuBtn,.vinyl-btn{transition:none!important}}
+
 html{overflow-x:clip}
 body>section,body>footer{overflow-x:clip}
 </style>
@@ -2014,8 +2023,7 @@ body>section,body>footer{overflow-x:clip}
   <div class="lp-niebla"></div>
   <canvas class="lp-caida" data-sprites="assets/petalo-marfil-1.webp,assets/petalo-oro-1.webp,assets/petalo-teal-1.webp,assets/petalo-marfil-2.webp,assets/petalo-oro-2.webp,assets/petalo-teal-2.webp"></canvas>
   <div class="h-cnt" id="hCnt">
-    <p class="h-monogram" id="hMono"><span class="mono-k">L</span><span class="mono-amp">&amp;</span><span class="mono-m">C</span></p>
-    <p class="h-names lp-glints" id="hNames"><span class="lp-cascada">Leonardo</span> <i>&amp;</i> <span class="lp-cascada">Cadmiel</span></p>
+    <p class="h-names lp-glints" id="hNames"><span class="lp-cascada">Leonardo</span><i class="h-amp">&amp;</i><span class="lp-cascada">Cadmiel</span></p>
     <p class="h-meta" id="hMeta">Temixco, Morelos<b>24 · 04 · 2027</b></p>
   </div>
   <div class="h-scroll" id="hScroll">
@@ -2676,6 +2684,20 @@ body>section,body>footer{overflow-x:clip}
 /* ── BOOT ─────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
+  /* Apariciones uniformes y suaves: toda entrada gsap.from dura >=1.2 s, sin rebote, desplazamiento corto */
+  (function(){
+    var _from = gsap.from.bind(gsap);
+    gsap.from = function(t, v){
+      if (v && !(v.scrollTrigger && v.scrollTrigger.scrub)) {
+        v.duration = Math.max(1.2, (v.duration || .5) * 1.9);
+        v.ease = 'sine.out';
+        if (typeof v.stagger === 'number') v.stagger = Math.max(.18, v.stagger * 1.5);
+        ['y','x'].forEach(function(k){ if (typeof v[k] === 'number') v[k] = Math.sign(v[k]) * Math.min(Math.abs(v[k]), 18); });
+        if (typeof v.scale === 'number' && v.scale < .95) v.scale = .95;
+      }
+      return _from(t, v);
+    };
+  })();
 
   const sobreBtn = document.getElementById('sobreBtn');
   const sobreVid = document.getElementById('sobreVideo');
@@ -2745,14 +2767,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!videoCutDone && sobreVid.currentTime >= VIDEO_CUT){
       videoCutDone = true;
       sobreVid.pause();
+      initInvitation();
+      ambientWind();
+      initRSVP();
+      startMusic();
       gsap.to(loaderEl, {
-        opacity:0, duration:.6, ease:'power2.out',
+        opacity:0, duration:2, ease:'sine.inOut', delay:.15,
         onComplete() {
           loaderEl.remove();
-          initInvitation();
-          ambientWind();
-          initRSVP();
-          startMusic();
         }
       });
     }
@@ -2775,13 +2797,13 @@ function toast(msg) {
 
 /* ── HERO ────────────────────────────────────────────── */
 function heroAnim() {
-  gsap.set('#hMono', { opacity:0, scale:.85 });
-  gsap.set('#hScroll', { opacity:0 });
-  gsap.timeline({ defaults:{ ease:'power3.out' } })
-    .to('#hMono',  { opacity:1, scale:1, duration:1.2 }, .2)
-    .to('#hScroll',{ opacity:1, duration:.5 }, 1.4);
-  gsap.set(['#hNames','#hMeta'],{opacity:0,y:16});
-  gsap.to(['#hNames','#hMeta'],{opacity:1,y:0,duration:1,stagger:.18,delay:.7,ease:'power3.out'});
+  gsap.set('#heroBg', { opacity:0 });
+  gsap.set(['#hNames','#hMeta','#hScroll'], { opacity:0, y:18 });
+  gsap.timeline({ defaults:{ ease:'sine.out' } })
+    .to('#heroBg',  { opacity:1, duration:2.4 }, 0)
+    .to('#hNames',  { opacity:1, y:0, duration:1.8 }, .9)
+    .to('#hMeta',   { opacity:1, y:0, duration:1.6 }, 1.5)
+    .to('#hScroll', { opacity:1, y:0, duration:1.4 }, 2.3);
   gsap.to('#heroBg', {
     y:-70, ease:'none',
     scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true }
