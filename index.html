@@ -1771,8 +1771,9 @@ body>section,body>footer{isolation:isolate}
    En la sección de ABAJO: data-lp-union="velo" o data-lp-union="seda". El JS crea la capa en su borde superior.
    Va encima del fundido de color medio entre secciones (no lo sustituye). Colores de la cortina: LP_CONFIG.cortina {sombra,base,luz} (metálico). */
 .lp-union{position:absolute;left:0;right:0;pointer-events:none;z-index:5}
-.lp-union--velo{left:-10%;right:-10%;top:-130px;height:260px;mix-blend-mode:screen;opacity:0;
-  background:radial-gradient(60% 50% at 50% 50%,rgba(var(--lp-glow),.75),rgba(var(--lp-glow),.18) 55%,transparent 75%)}
+/* sin mix-blend-mode: la sección tiene isolation:isolate y la mitad que asoma arriba se mezclaría distinto (deja línea) */
+.lp-union--velo{left:0;right:0;top:-130px;height:260px;opacity:0;
+  background:radial-gradient(75% 50% at 50% 50%,rgba(var(--lp-glow),.5),rgba(var(--lp-glow),.16) 50%,rgba(var(--lp-glow),0) 74%)}
 .lp-union--seda{top:-90px;height:180px;
   -webkit-mask-image:linear-gradient(transparent,#000 40%,#000 60%,transparent);mask-image:linear-gradient(transparent,#000 40%,#000 60%,transparent)}
 .lp-union--seda .lp-seda{z-index:0}
@@ -4538,8 +4539,12 @@ function ambientWind(){
    Configuración por invitación, ANTES de este script:
      window.LP_CONFIG = {
        flareMini: 'assets/flare-mini.webp',
-       seda: { sombra:'#3B2F4A', base:'#B9A6C9', luz:'#FFF4E6' },   // 3 tonos de la paleta (oscuro, medio, brillo)
-       causticas: '#FFF8E4'                                       // color de la luz
+       seda:    { sombra:'#3B2F4A', base:'#B9A6C9', luz:'#FFF4E6' },  // 3 tonos de la paleta (oscuro, medio, brillo)
+       borde:   '#F6F2EC',      // color de borde que comparten TODAS las secciones claras (la seda se funde desde aquí)
+       fundido: 220,            // alto en px del fundido de la seda
+       cortina: { sombra:'#7A5A33', base:'#C9A86E', luz:'#FFF4DC' },  // metálico para data-lp-union="seda"
+       niebla:  '236,240,246',  // r,g,b de la niebla
+       causticas: '#FFF8E4'     // color de la luz de las cáusticas
      };
    Todo se pausa fuera de pantalla y con la pestaña oculta; con prefers-reduced-motion queda en un cuadro fijo. */
 (function(){
@@ -4633,12 +4638,16 @@ function ambientWind(){
      de la sección vecina (LP_CONFIG.borde, p. ej. el marfil que comparten todas las secciones claras) → transparente.
      Así la línea de unión es del mismo color de los dos lados y no queda franja gris ni corte.
      Por sección: data-lp-borde-top / data-lp-borde-bot = otro color o "none" (sin fundido de ese lado). */
-  function smooth(col,dir){var st=[];for(var i=0;i<=8;i++){var t=i/8,a=1-t*t*(3-2*t);st.push('rgba('+col+','+a.toFixed(3)+') '+(t*100).toFixed(1)+'%')}return 'linear-gradient('+dir+','+st.join(',')+')'}
+  /* el color viaja del borde hacia el tono medio de la seda mientras se vuelve transparente: no pasa por gris */
+  function smooth(col,dir,tint){var c=col.split(',').map(Number),b=(tint||col).split(',').map(Number),st=[];
+    for(var i=0;i<=8;i++){var t=i/8,a=1-t*t*(3-2*t),k=t*.7,m=c.map(function(v,j){return Math.round(v+(b[j]-v)*k)}).join(',');st.push('rgba('+m+','+a.toFixed(3)+') '+(t*100).toFixed(1)+'%')}
+    return 'linear-gradient('+dir+','+st.join(',')+')'}
   function rgb(c){if(!c)return null;if(c.indexOf('rgb')===0)return c.replace(/rgba?\(|\)/g,'').split(',').slice(0,3).map(function(x){return x.trim()}).join(',');var h=hex(c);return h.map(function(v){return Math.round(v*255)}).join(',')}
   document.querySelectorAll('.lp-seda').forEach(function(cv){var sec=cv.parentElement;if(!sec||sec.classList.contains('lp-union'))return;
     var H=(C.fundido||220)+'px';[['top','to bottom'],['bot','to top']].forEach(function(s){
       var v=sec.getAttribute('data-lp-borde-'+s[0]);if(v==='none')return;var col=rgb(v||C.borde);if(!col)return;
-      var f=document.createElement('div');f.className='lp-sfade lp-sfade--'+s[0];f.setAttribute('aria-hidden','true');f.style.height=H;f.style.backgroundImage=smooth(col,s[1]);sec.insertBefore(f,cv.nextSibling)})});
+      var tint=rgb(cv.dataset.base||(C.seda||{}).base);
+      var f=document.createElement('div');f.className='lp-sfade lp-sfade--'+s[0];f.setAttribute('aria-hidden','true');f.style.height=H;f.style.backgroundImage=smooth(col,s[1],tint);sec.insertBefore(f,cv.nextSibling)})});
 
   /* 14 · seda iluminada: UN contexto WebGL compartido que dibuja cada sección visible y la copia a su canvas 2D */
   var sedas=[].slice.call(document.querySelectorAll('.lp-seda'));
