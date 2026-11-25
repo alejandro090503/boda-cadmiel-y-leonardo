@@ -18,7 +18,9 @@ async def main():
         ys = await pg.evaluate("[...document.querySelectorAll('body>section,body>footer')].slice(1).map(s=>[s.previousElementSibling.closest('section,footer')?.id||'?',s.id,Math.round(s.getBoundingClientRect().top+scrollY)])")
         fs = []
         for a, c, y in ys:
-            await pg.evaluate(f'scrollTo(0,{y - 406})'); await pg.wait_for_timeout(900)
+            for _ in range(2):
+                y = await pg.evaluate(f"Math.round(document.getElementById('{c}').getBoundingClientRect().top+scrollY)")
+                await pg.evaluate(f'scrollTo(0,{y - 406})'); await pg.wait_for_timeout(700)
             f = f'{OUT}/{a}--{c}.png'; await pg.screenshot(path=f, clip={'x': 0, 'y': 206, 'width': 375, 'height': 400}); fs.append((f, a + '>' + c))
         print('errores', errs, 'sw', await pg.evaluate('document.documentElement.scrollWidth'))
         await b.close()

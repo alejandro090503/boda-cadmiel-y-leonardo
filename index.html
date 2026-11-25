@@ -4644,10 +4644,13 @@ function ambientWind(){
     return 'linear-gradient('+dir+','+st.join(',')+')'}
   function rgb(c){if(!c)return null;if(c.indexOf('rgb')===0)return c.replace(/rgba?\(|\)/g,'').split(',').slice(0,3).map(function(x){return x.trim()}).join(',');var h=hex(c);return h.map(function(v){return Math.round(v*255)}).join(',')}
   document.querySelectorAll('.lp-seda').forEach(function(cv){var sec=cv.parentElement;if(!sec||sec.classList.contains('lp-union'))return;
+    /* en secciones cortas el fundido no pasa del 30% del alto, para que la seda se siga viendo */
+    var fades=[];function alto(){var h=Math.round(Math.min(C.fundido||220,sec.offsetHeight*.3))+'px';fades.forEach(function(f){f.style.height=h})}
+    addEventListener('resize',alto);setTimeout(alto,0);addEventListener('load',alto);
     var H=(C.fundido||220)+'px';[['top','to bottom'],['bot','to top']].forEach(function(s){
       var v=sec.getAttribute('data-lp-borde-'+s[0]);if(v==='none')return;var col=rgb(v||C.borde);if(!col)return;
       var tint=rgb(cv.dataset.base||(C.seda||{}).base);
-      var f=document.createElement('div');f.className='lp-sfade lp-sfade--'+s[0];f.setAttribute('aria-hidden','true');f.style.height=H;f.style.backgroundImage=smooth(col,s[1],tint);sec.insertBefore(f,cv.nextSibling)})});
+      var f=document.createElement('div');f.className='lp-sfade lp-sfade--'+s[0];f.setAttribute('aria-hidden','true');f.style.height=H;f.style.backgroundImage=smooth(col,s[1],tint);sec.insertBefore(f,cv.nextSibling);fades.push(f)});alto()});
 
   /* 14 · seda iluminada: UN contexto WebGL compartido que dibuja cada sección visible y la copia a su canvas 2D */
   var sedas=[].slice.call(document.querySelectorAll('.lp-seda'));
