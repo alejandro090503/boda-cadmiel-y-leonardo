@@ -1,0 +1,95 @@
+<!-- INSERTAR: reemplaza en index.html la sección completa <section id="hospedaje"> ... </section> (también sustituye al bloque B-hospedaje.html/.css de la lista simple; los datos salen de _src/hoteles.json y viven en los data-* de cada .hsx-slide y de #hsxMap) -->
+<section id="hospedaje" aria-label="Hospedaje">
+  <span class="hsx-lbl">Para tu estancia</span>
+  <h2 class="hsx-title">Hoteles sugeridos</h2>
+  <div class="hsx-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+  <p class="hsx-intro">Te recomendamos estas opciones cercanas al recinto.</p>
+
+  <div class="hsx-seg" id="hsxSeg" data-v="lista" role="tablist" aria-label="Vista de hoteles">
+    <span class="hsx-ind" aria-hidden="true"></span>
+    <button type="button" role="tab" aria-selected="true" data-v="lista" id="hsxTabL" aria-controls="hsxLista">Lista</button>
+    <button type="button" role="tab" aria-selected="false" data-v="mapa" id="hsxTabM" aria-controls="hsxMapa">Mapa</button>
+  </div>
+
+  <!-- ═══ LISTA ═══ -->
+  <div class="hsx-view" id="hsxLista" role="tabpanel" aria-labelledby="hsxTabL">
+    <div class="hsx-car" aria-roledescription="carrusel" aria-label="Hoteles sugeridos">
+      <button class="hsx-arrow hsx-prev" type="button" aria-label="Hotel anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="hsx-arrow hsx-next" type="button" aria-label="Hotel siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="hsx-viewport">
+        <div class="hsx-track">
+
+          <article class="hsx-slide" data-nombre="Finca Los Ángeles" data-tipo="Hotel con alberca"
+                   data-dir="Tabachines 37, Lázaro Cárdenas, 62790 Chiconcuac, Mor." data-lat="18.7774261" data-lng="-99.2142935" data-mi="5.8" data-min="10"
+                   data-ubic="https://www.google.com/maps/place/Tabachines+37,+Lazaro+Cardenas,+62790+Chiconcuac,+Mor./@18.7774261,-99.2142935,17z/data=!4m6!3m5!1s0x85cdd82248fba10f:0xeb7d33b6dde749ea!8m2!3d18.7774261!4d-99.2142935"
+                   data-res="https://www.facebook.com/FincadelosAngelesHotel">
+            <div class="hsx-photo"><img class="hsx-main" src="fotos-cliente/hotel-finca-angeles.jpg" alt="Finca Los Ángeles" width="176" height="176" decoding="async"></div>
+            <div class="hsx-thumbs" role="group" aria-label="Fotos de Finca Los Ángeles">
+              <button type="button" class="on" data-full="fotos-cliente/hotel-finca-angeles.jpg" aria-label="Ver foto 1"><img src="fotos-cliente/hotel-finca-angeles.jpg" alt="" width="50" height="50" decoding="async"></button>
+              <button type="button" data-full="fotos-cliente/hotel-finca-angeles-2.jpg" aria-label="Ver foto 2"><img src="fotos-cliente/hotel-finca-angeles-2.jpg" alt="" width="50" height="50" decoding="async"></button>
+              <button type="button" data-full="fotos-cliente/hotel-finca-angeles-3.jpg" aria-label="Ver foto 3"><img src="fotos-cliente/hotel-finca-angeles-3.jpg" alt="" width="50" height="50" decoding="async"></button>
+            </div>
+            <span class="hsx-type">Hotel con alberca · 16 habitaciones</span>
+            <h3 class="hsx-name">Finca Los Ángeles</h3>
+            <p class="hsx-addr">Tabachines 37, Lázaro Cárdenas, 62790 Chiconcuac, Mor.</p>
+            <p class="hsx-dist">9 km · 10 min a la recepción</p>
+            <div class="hsx-btns">
+              <a class="hsx-b hsx-b1" href="https://www.facebook.com/FincadelosAngelesHotel" target="_blank" rel="noopener">Reservar</a>
+              <a class="hsx-b hsx-b2" href="https://www.google.com/maps/place/Tabachines+37,+Lazaro+Cardenas,+62790+Chiconcuac,+Mor./@18.7774261,-99.2142935,17z/data=!4m6!3m5!1s0x85cdd82248fba10f:0xeb7d33b6dde749ea!8m2!3d18.7774261!4d-99.2142935" target="_blank" rel="noopener">Cómo llegar</a>
+            </div>
+          </article>
+
+          <article class="hsx-slide" data-nombre="Hostería Las Quintas" data-tipo="Hostería"
+                   data-dir="Blvd. Gustavo Díaz Ordaz 9, Cantarranas, 62448 Cuernavaca, Mor." data-lat="18.919265" data-lng="-99.2180414" data-mi="6.8" data-min="11"
+                   data-ubic="https://www.google.com/maps/place/Hoster%C3%ADa+Las+Quintas/@18.919265,-99.2180414,17z/data=!4m6!3m5!1s0x85cddfa46be2ecef:0x24dbd51d84b7a4d6!8m2!3d18.919265!4d-99.2180414"
+                   data-res="https://direct-book.com/properties/HosteriaLasQuintasHotelDirect?locale=es&amp;currency=MXN">
+            <div class="hsx-photo"><img class="hsx-main" src="fotos-cliente/hotel-las-quintas.jpg" alt="Hostería Las Quintas" width="176" height="176" decoding="async"></div>
+            <div class="hsx-thumbs" role="group" aria-label="Fotos de Hostería Las Quintas">
+              <button type="button" class="on" data-full="fotos-cliente/hotel-las-quintas.jpg" aria-label="Ver foto 1"><img src="fotos-cliente/hotel-las-quintas.jpg" alt="" width="50" height="50" decoding="async"></button>
+              <button type="button" data-full="fotos-cliente/hotel-las-quintas-2.jpg" aria-label="Ver foto 2"><img src="fotos-cliente/hotel-las-quintas-2.jpg" alt="" width="50" height="50" decoding="async"></button>
+              <button type="button" data-full="fotos-cliente/hotel-las-quintas-3.jpg" aria-label="Ver foto 3"><img src="fotos-cliente/hotel-las-quintas-3.jpg" alt="" width="50" height="50" decoding="async"></button>
+            </div>
+            <span class="hsx-type">Hostería · 121 suites</span>
+            <h3 class="hsx-name">Hostería Las Quintas</h3>
+            <p class="hsx-addr">Blvd. Gustavo Díaz Ordaz 9, Cantarranas, 62448 Cuernavaca, Mor.</p>
+            <p class="hsx-dist">11 km · 11 min a la recepción</p>
+            <div class="hsx-btns">
+              <a class="hsx-b hsx-b1" href="https://direct-book.com/properties/HosteriaLasQuintasHotelDirect?locale=es&amp;currency=MXN" target="_blank" rel="noopener">Reservar</a>
+              <a class="hsx-b hsx-b2" href="https://www.google.com/maps/place/Hoster%C3%ADa+Las+Quintas/@18.919265,-99.2180414,17z/data=!4m6!3m5!1s0x85cddfa46be2ecef:0x24dbd51d84b7a4d6!8m2!3d18.919265!4d-99.2180414" target="_blank" rel="noopener">Cómo llegar</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+      <div class="hsx-dots" role="group" aria-label="Elegir hotel">
+        <button type="button" class="on" aria-label="Finca Los Ángeles"><i></i></button>
+        <button type="button" aria-label="Hostería Las Quintas"><i></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MAPA ═══ -->
+  <div class="hsx-view" id="hsxMapa" role="tabpanel" aria-labelledby="hsxTabM" hidden>
+    <div class="hsx-frame">
+      <div class="hsx-map" id="hsxMap" data-lat="18.8358233" data-lng="-99.2132066" data-label="Ceremonia y recepción"></div>
+      <div class="hsx-msg" id="hsxMsg" aria-live="polite">Usa dos dedos para mover el mapa</div>
+      <div class="hsx-hint" id="hsxHint">Toca un hotel para ver sus datos</div>
+      <div class="hsx-ctl" id="hsxCtl">
+        <button type="button" data-act="in" aria-label="Acercar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button type="button" data-act="out" aria-label="Alejar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+        <button type="button" data-act="all" aria-label="Ver todo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
+      <div class="hsx-ficha" id="hsxFicha" role="dialog" aria-label="Datos del hotel" aria-hidden="true">
+        <button type="button" class="hsx-fx" id="hsxFx" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <span class="hsx-ft" id="hsxFt"></span>
+        <h3 class="hsx-fn" id="hsxFn"></h3>
+        <p class="hsx-fa" id="hsxFa"></p>
+        <p class="hsx-fd" id="hsxFd"></p>
+        <div class="hsx-fb">
+          <a class="hsx-b hsx-b2" id="hsxFu" href="#" target="_blank" rel="noopener">Ver ubicación</a>
+          <a class="hsx-b hsx-b1" id="hsxFr" href="#" target="_blank" rel="noopener">Reservar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

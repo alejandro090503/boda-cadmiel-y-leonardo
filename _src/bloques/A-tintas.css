@@ -1,0 +1,41 @@
+/* INSERTAR: antes de </style> (al final, despues de los estilos de cada seccion) */
+/* Tintas de alcohol azul/oro. Secciones: fecha, location, itinerary, dresscode, gifts, album, family, rsvp.
+   Las secciones del base traen overflow:hidden: se anula para que la tinta salga ~180px arriba y abajo. */
+#fecha,#location,#itinerary,#dresscode,#gifts,#album,#family,#rsvp{
+  position:relative !important;isolation:isolate;overflow:visible !important;
+}
+:is(#fecha,#location,#itinerary,#dresscode,#gifts,#album,#family,#rsvp) > .ink-bg{
+  position:absolute !important;left:0;right:0;top:-180px;bottom:-180px;z-index:-2 !important;
+  pointer-events:none;overflow:hidden;opacity:.92;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 34%,#000 66%,transparent);
+          mask-image:linear-gradient(to bottom,transparent,#000 34%,#000 66%,transparent);
+}
+.ink-bg.fx{transform:scaleX(-1)}
+.ink-bg.dim{opacity:.6}
+.ink-bg > img{
+  position:absolute;left:-10%;top:-10%;width:120%;height:120%;max-width:none;object-fit:cover;
+  display:block;user-select:none;-webkit-user-drag:none;
+  transform:translate3d(var(--x0),var(--y0),0) rotate(var(--r0)) scale(1.02,1.02);
+  animation:inkDrift 22s ease-in-out infinite alternate;will-change:transform;
+}
+.ink-bg.fy > img{--sgn:-1}
+@keyframes inkDrift{
+  from{transform:translate3d(var(--x0),var(--y0),0) rotate(var(--r0)) scale(1.02,calc(var(--sgn,1)*1.02))}
+  to  {transform:translate3d(var(--x1),var(--y1),0) rotate(var(--r1)) scale(1.16,calc(var(--sgn,1)*1.16))}
+}
+/* cada seccion con su direccion y fase */
+.ink-bg[data-k="1"] > img{--x0:-4%;--y0:-3%;--r0:-1.2deg;--x1:4%;--y1:3%;--r1:1.2deg;animation-delay:-3s}
+.ink-bg[data-k="2"] > img{--x0:4%;--y0:2%;--r0:1deg;--x1:-4%;--y1:-3%;--r1:-1.2deg;animation-delay:-9s}
+.ink-bg[data-k="3"] > img{--x0:-3%;--y0:4%;--r0:1.2deg;--x1:3%;--y1:-4%;--r1:-1deg;animation-delay:-14s}
+.ink-bg[data-k="4"] > img{--x0:4%;--y0:-4%;--r0:-1deg;--x1:-3%;--y1:4%;--r1:1.2deg;animation-delay:-6s}
+.ink-bg[data-k="5"] > img{--x0:-4%;--y0:0%;--r0:1.2deg;--x1:4%;--y1:2%;--r1:-1.2deg;animation-delay:-18s}
+.ink-bg[data-k="6"] > img{--x0:3%;--y0:3%;--r0:-1.2deg;--x1:-4%;--y1:-2%;--r1:1deg;animation-delay:-11s}
+.ink-bg[data-k="7"] > img{--x0:0%;--y0:-4%;--r0:1deg;--x1:3%;--y1:4%;--r1:-1.2deg;animation-delay:-1s}
+.ink-bg[data-k="8"] > img{--x0:-3%;--y0:3%;--r0:-1deg;--x1:4%;--y1:-4%;--r1:1.2deg;animation-delay:-16s}
+/* halo claro en los textos que quedan sobre tinta */
+:is(#fecha,#location,#itinerary,#dresscode,#gifts,#album,#family,#rsvp) :is(h1,h2,h3,h4,p,li,label,small,.eyebrow,.sec-title){
+  text-shadow:0 0 6px rgba(255,255,255,.95),0 0 14px rgba(255,255,255,.85),0 0 26px rgba(255,255,255,.6);
+}
+@media (prefers-reduced-motion:reduce){
+  .ink-bg > img{animation:none}
+}

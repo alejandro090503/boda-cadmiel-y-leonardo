@@ -1,0 +1,70 @@
+/* INSERTAR: al final del bloque <style> de index.html. Itinerario con luz: horas en Bodoni y estela guiada por el scroll */
+#itinerary{--ix-navy:#1F2E4A;--ix-teal:#2F5E7E;--ix-gold:#A9824F;--ix-gold-lt:#D9C3A0;--ix-gold-dp:#7A5A33;--ix-ink:#2B2B2B;
+  position:relative;overflow:hidden;text-align:center;padding:68px 22px 84px;
+  background:radial-gradient(110% 55% at 50% 0%,#FFFFFF 0%,rgba(255,255,255,0) 70%),radial-gradient(90% 45% at 50% 100%,#EFE6D8 0%,rgba(239,230,216,0) 75%),#F6F2EC}
+#itinerary::before,#itinerary::after{content:none!important;display:none!important}
+#itinerary .itx-lbl{display:block;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--ix-gold-dp)}
+#itinerary .itx-title{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(44px,12vw,54px);line-height:1.3;color:var(--ix-navy);padding:0 .15em;margin:6px 0 0;overflow:visible}
+#itinerary .itx-rule{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px auto 40px}
+#itinerary .itx-rule i{display:block;width:54px;height:1px;background:linear-gradient(90deg,transparent,var(--ix-gold))}
+#itinerary .itx-rule i:last-child{background:linear-gradient(90deg,var(--ix-gold),transparent)}
+#itinerary .itx-rule b{display:block;width:7px;height:7px;background:var(--ix-gold);transform:rotate(45deg)}
+
+#itinerary .itx-wrap{position:relative;max-width:360px;margin:0 auto;padding:30px 0 34px}
+#itinerary .itx-list{list-style:none;margin:0;padding:0;position:relative;z-index:2}
+#itinerary .itx-row{display:grid;align-items:center;column-gap:8px;min-height:150px;margin:0;padding:0}
+#itinerary .itx-l{grid-template-columns:minmax(0,1fr) 34px minmax(0,1.12fr);grid-template-areas:"h d t"}
+#itinerary .itx-r{grid-template-columns:minmax(0,1.12fr) 34px minmax(0,1fr);grid-template-areas:"t d h"}
+#itinerary .itx-h{grid-area:h;display:flex;align-items:baseline;gap:6px}
+#itinerary .itx-l .itx-h{justify-content:flex-end}
+#itinerary .itx-r .itx-h{justify-content:flex-start}
+#itinerary .itx-n{font-family:'Bodoni Moda',serif;font-weight:500;font-size:40px;line-height:1.05;letter-spacing:.005em;font-variant-numeric:lining-nums;font-optical-sizing:auto;
+  color:var(--ix-teal);transition:color .6s ease,text-shadow .6s ease}
+#itinerary .itx-m{font-family:'Bodoni Moda',serif;font-style:italic;font-weight:500;font-size:18px;letter-spacing:.04em;color:var(--ix-gold-dp)}
+#itinerary .itx-row.is-lit .itx-n{color:var(--ix-navy);text-shadow:0 0 16px rgba(201,164,100,.55),0 1px 0 rgba(255,255,255,.8)}
+#itinerary .itx-t{grid-area:t;display:flex;flex-direction:column;gap:4px}
+#itinerary .itx-l .itx-t{align-items:flex-start;text-align:left}
+#itinerary .itx-r .itx-t{align-items:flex-end;text-align:right}
+#itinerary .itx-ico{width:46px;height:46px;margin-bottom:6px;fill:none;stroke:var(--ix-navy);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+#itinerary .itx-ico circle{fill:var(--ix-gold);stroke:none}
+#itinerary .itx-ev{font-family:'Jost',sans-serif;font-weight:500;font-size:18px;line-height:1.25;color:var(--ix-navy)}
+#itinerary .itx-pl{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;line-height:1.3;color:var(--ix-ink);letter-spacing:.03em}
+
+/* punto que se enciende con chispa */
+#itinerary .itx-dot{grid-area:d;position:relative;justify-self:center;width:16px;height:16px;border-radius:50%;background:#FFFFFF;
+  border:1.5px solid var(--ix-gold);box-shadow:0 0 0 4px #F6F2EC;transition:background .5s ease,box-shadow .55s ease,border-color .5s ease}
+#itinerary .itx-row.is-lit .itx-dot{border-color:var(--ix-gold-dp);background:radial-gradient(circle at 38% 32%,#F3E2BC 0 26%,#C9A464 58%,#A9824F 100%);
+  box-shadow:0 0 0 4px #F6F2EC,0 0 0 5.5px rgba(169,130,79,.55),0 0 14px 4px rgba(201,164,100,.6),0 0 30px 8px rgba(201,164,100,.28)}
+#itinerary .itx-dot::before,#itinerary .itx-dot::after{content:'';position:absolute;left:50%;top:50%;pointer-events:none;opacity:0}
+#itinerary .itx-dot::before{width:64px;height:2px;margin:-1px 0 0 -32px;background:linear-gradient(90deg,transparent,#C9A464 35%,#A9824F 50%,#C9A464 65%,transparent)}
+#itinerary .itx-dot::after{width:2px;height:64px;margin:-32px 0 0 -1px;background:linear-gradient(180deg,transparent,#C9A464 35%,#A9824F 50%,#C9A464 65%,transparent)}
+#itinerary .itx-row.is-lit .itx-dot::before,#itinerary .itx-row.is-lit .itx-dot::after{animation:itxChispa 1.15s cubic-bezier(.2,.7,.2,1) 1}
+@keyframes itxChispa{0%{opacity:0;transform:scale(.2) rotate(-24deg)}28%{opacity:1;transform:scale(1.05) rotate(0)}100%{opacity:0;transform:scale(.55) rotate(18deg)}}
+
+/* línea + estela (cola en tres capas) + cabeza luminosa */
+#itinerary .itx-svg{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+#itinerary .itx-svg polyline{fill:none;stroke-linejoin:round;stroke-linecap:round}
+#itinerary .itx-track{stroke:#A9824F;stroke-opacity:.3;stroke-width:1}
+#itinerary .itx-line{stroke:#7A5A33;stroke-opacity:.95;stroke-width:1.5;stroke-dasharray:1 1;stroke-dashoffset:1;stroke-linecap:butt}
+#itinerary .itx-t1{stroke:#C9A464;stroke-opacity:.22;stroke-width:7}
+#itinerary .itx-t2{stroke:#C9A464;stroke-opacity:.5;stroke-width:3}
+#itinerary .itx-t3{stroke:#A9824F;stroke-opacity:.95;stroke-width:1.6}
+#itinerary .itx-head{position:absolute;left:0;top:0;width:0;height:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .35s ease}
+#itinerary .itx-head.is-on{opacity:1}
+#itinerary .itx-head b{position:absolute;left:-46px;top:-46px;width:92px;height:92px;border-radius:50%;
+  background:radial-gradient(circle,rgba(247,226,176,.95) 0 6%,rgba(214,176,106,.55) 18%,rgba(201,164,100,.18) 42%,rgba(201,164,100,0) 70%);
+  animation:itxLatido 3.4s ease-in-out infinite}
+#itinerary .itx-head b::before,#itinerary .itx-head b::after{content:'';position:absolute;left:50%;top:50%}
+#itinerary .itx-head b::before{width:54px;height:2px;margin:-1px 0 0 -27px;background:linear-gradient(90deg,transparent,#B8924E 40%,#8A6A38 50%,#B8924E 60%,transparent)}
+#itinerary .itx-head b::after{width:2px;height:84px;margin:-42px 0 0 -1px;background:linear-gradient(180deg,transparent,#B8924E 40%,#8A6A38 50%,#B8924E 60%,transparent)}
+@keyframes itxLatido{0%,100%{opacity:.85;transform:scale(.9) rotate(0)}50%{opacity:1;transform:scale(1.08) rotate(14deg)}}
+
+html.itx-js #itinerary .itx-rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+html.itx-js #itinerary .itx-rv.in{opacity:1;transform:none}
+@media (max-width:340px){#itinerary{padding-left:14px;padding-right:14px}#itinerary .itx-n{font-size:34px}#itinerary .itx-ev{font-size:17px}}
+@media (prefers-reduced-motion:reduce){
+  #itinerary .itx-head{display:none}
+  #itinerary .itx-row.is-lit .itx-dot::before,#itinerary .itx-row.is-lit .itx-dot::after{animation:none}
+  #itinerary .itx-n,#itinerary .itx-dot{transition:none}
+  html.itx-js #itinerary .itx-rv{opacity:1;transform:none;transition:none}
+}

@@ -1,0 +1,48 @@
+<!-- INSERTAR: reemplaza en index.html la sección completa <section id="itinerary"> ... </section> (líneas ~1317-1475; borra también el CSS viejo "/* ── ITINERARY" #itinerary…it-time y el ScrollTrigger '#itinerary' con gsap.from('.it-step') del initScroll). Requiere Bodoni Moda (ya está en el <link> de fuentes) y Jost -->
+<section id="itinerary" aria-label="Itinerario">
+  <span class="itx-lbl itx-rv">Nuestro día</span>
+  <h2 class="itx-title itx-rv">Itinerario</h2>
+  <div class="itx-rule itx-rv" aria-hidden="true"><i></i><b></b><i></i></div>
+
+  <div class="itx-wrap" id="itxWrap">
+    <svg class="itx-svg" id="itxSvg" aria-hidden="true" focusable="false">
+      <polyline class="itx-track" id="itxTrack"/>
+      <polyline class="itx-t1" id="itxT1"/>
+      <polyline class="itx-t2" id="itxT2"/>
+      <polyline class="itx-t3" id="itxT3"/>
+      <polyline class="itx-line" id="itxLine"/>
+    </svg>
+    <i class="itx-head" id="itxHead" aria-hidden="true"><b></b></i>
+
+    <ol class="itx-list">
+      <li class="itx-row itx-l itx-rv">
+        <div class="itx-h"><span class="itx-n">2:00</span><span class="itx-m">PM</span></div>
+        <span class="itx-dot" aria-hidden="true"></span>
+        <div class="itx-t">
+          <svg class="itx-ico" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M24 3v8M20.5 7h7"/>
+            <path d="M11 23 24 12l13 11"/>
+            <path d="M14 21.5V42h20V21.5"/>
+            <path d="M20 42v-9a4 4 0 0 1 8 0v9"/>
+            <path d="M6 42h36"/>
+          </svg>
+          <span class="itx-ev">Ceremonia religiosa</span>
+          <span class="itx-pl">Thesan Jardín</span>
+        </div>
+      </li>
+      <li class="itx-row itx-r itx-rv">
+        <div class="itx-h"><span class="itx-n">3:50</span><span class="itx-m">PM</span></div>
+        <span class="itx-dot" aria-hidden="true"></span>
+        <div class="itx-t">
+          <svg class="itx-ico" viewBox="0 0 48 48" aria-hidden="true">
+            <g transform="rotate(-14 17 40)"><path d="M12.5 5h9l-1.1 15a3.4 3.4 0 0 1-6.8 0z"/><path d="M17 23.4V39M12 40h10"/></g>
+            <g transform="translate(15 0) rotate(14 17 40)"><path d="M12.5 5h9l-1.1 15a3.4 3.4 0 0 1-6.8 0z"/><path d="M17 23.4V39M12 40h10"/></g>
+            <circle cx="24" cy="5" r="1.1"/><circle cx="29.5" cy="2.8" r=".9"/><circle cx="19" cy="2.6" r=".8"/>
+          </svg>
+          <span class="itx-ev">Recepción</span>
+          <span class="itx-pl">Thesan Jardín</span>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>

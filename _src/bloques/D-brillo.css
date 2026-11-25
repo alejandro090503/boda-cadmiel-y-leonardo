@@ -1,0 +1,87 @@
+/* INSERTAR: antes de </style> (ancla única: la línea "  </style>" que cierra el <head>), DESPUÉS de P-principal.css y de los bloques B/C */
+/* ── D-BRILLO · brillo óptico premium en oro caramelo sobre fondo claro ──
+   Destellos renderizados (assets/flare-oro*.webp), filo con dirección de luz, vidrio con
+   filete y reflejo, foil en títulos/nombres/cifras. Nunca en datos de lectura. */
+:root{
+  --gold:#A9824F;--gold-lt:#D9C3A0;--gold-deep:#7A5A33;
+  --foil:linear-gradient(100deg,#5E4424 0%,#7A5A33 27%,#A9824F 50%,#7A5A33 73%,#5E4424 100%);
+  --foil-dark:linear-gradient(100deg,#A9824F 0%,#D9C3A0 27%,#FFFBEA 50%,#D9C3A0 73%,#A9824F 100%);
+  --glow:169,130,79;
+}
+
+/* ── Destello de lente: florece uno a la vez (desfase áureo) ── */
+.kx-flare{position:absolute;left:var(--x,50%);top:var(--y,0);width:0;height:0;z-index:5;pointer-events:none}
+.kx-flare b{position:absolute;left:0;top:0;display:block;width:calc(190px*var(--s,1));height:calc(190px*var(--s,1));
+  margin:calc(-95px*var(--s,1)) 0 0 calc(-95px*var(--s,1));background:url(assets/flare-oro.webp) center/contain no-repeat;
+  opacity:.62;transform:scale(.86);animation:kxBloom var(--dur,8s) cubic-bezier(.45,0,.3,1) infinite;animation-delay:var(--del,0s)}
+.kx-flare.is-mini b{background-image:url(assets/flare-oro-mini.webp);width:calc(62px*var(--s,1));height:calc(62px*var(--s,1));
+  margin:calc(-31px*var(--s,1)) 0 0 calc(-31px*var(--s,1));animation-name:kxTwinkle}
+@keyframes kxBloom{0%,34%{opacity:.62;transform:scale(.86)}48%{opacity:1;transform:scale(1.15)}56%{opacity:.9;transform:scale(1.04)}74%,100%{opacity:.62;transform:scale(.86)}}
+@keyframes kxTwinkle{0%,40%{opacity:.15;transform:scale(.35) rotate(-18deg)}50%{opacity:1;transform:scale(1.15) rotate(0)}62%,100%{opacity:.15;transform:scale(.35) rotate(16deg)}}
+/* fuera de pantalla no se anima nada (cuida memoria de capas en iPhone) */
+section:not(.kx-live) .kx-flare b,footer:not(.kx-live) .kx-flare b,
+section:not(.kx-live) .kx-rim i,section:not(.kx-live) .kx-sheen i,section:not(.kx-live) .kx-polvo i,
+section:not(.kx-live) .foil-text,footer:not(.kx-live) .foil-text{animation-play-state:paused!important}
+
+/* ── Tarjeta: filo de luz + vidrio + halo ── */
+.kx-card{isolation:isolate}
+.kx-halo{position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;z-index:1;
+  background:radial-gradient(160px 100px at 6% 0,rgba(217,195,160,.22),transparent 72%),radial-gradient(140px 90px at 94% 100%,rgba(169,130,79,.14),transparent 72%);
+  box-shadow:0 0 34px -8px rgba(169,130,79,.38),0 14px 30px -18px rgba(31,46,74,.22)}
+/* filo de 1.5 px: esquina sup. izq. champán casi blanco, costados tenues, rebote dorado abajo a la derecha */
+.kx-rim{position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;overflow:hidden;pointer-events:none;z-index:3;
+  background:linear-gradient(138deg,#FFF6E4 0%,#E9D7B4 7%,rgba(169,130,79,.62) 19%,rgba(169,130,79,.26) 40%,rgba(169,130,79,.22) 60%,rgba(169,130,79,.7) 84%,#C9A46A 95%,#8F6C40 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+/* reflejo que recorre el borde (~10 s) */
+.kx-rim i{position:absolute;left:50%;top:50%;width:175%;aspect-ratio:1;margin:-87.5% 0 0 -87.5%;
+  background:conic-gradient(from 0deg,transparent 0deg,transparent 150deg,rgba(169,130,79,.35) 164deg,#7A5A33 172deg,#FFF3D6 179deg,rgba(255,243,214,0) 184deg,transparent 330deg,rgba(169,130,79,.3) 346deg,#D9C3A0 359deg,transparent 360deg);
+  animation:kxSpin 10s linear infinite;animation-delay:var(--del,0s)}
+@keyframes kxSpin{to{transform:rotate(360deg)}}
+/* filete interior fino */
+.kx-line{position:absolute;inset:6px;border-radius:calc(var(--kx-r,16px) - 5px);pointer-events:none;z-index:2;
+  border:1px solid rgba(169,130,79,.26);
+  -webkit-mask:linear-gradient(138deg,#000,rgba(0,0,0,.3) 34%,rgba(0,0,0,.3) 66%,#000);mask:linear-gradient(138deg,#000,rgba(0,0,0,.3) 34%,rgba(0,0,0,.3) 66%,#000)}
+/* reflejo diagonal del vidrio cada ~9 s */
+.kx-sheen{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:2}
+.kx-sheen i{position:absolute;top:-30%;bottom:-30%;left:0;width:46%;
+  background:linear-gradient(100deg,transparent,rgba(217,195,160,.07) 30%,rgba(233,215,180,.26) 49%,rgba(255,251,240,.18) 54%,transparent);
+  transform:translateX(-140%) skewX(-16deg);animation:kxGlass 9s cubic-bezier(.5,0,.2,1) infinite;animation-delay:var(--del,0s)}
+@keyframes kxGlass{0%,58%{transform:translateX(-140%) skewX(-16deg)}86%,100%{transform:translateX(340%) skewX(-16deg)}}
+
+/* ── Foil en títulos, nombres, "&" y cifras ── */
+.foil-text{
+  background-image:var(--foil)!important;background-size:220% 100%!important;background-repeat:no-repeat!important;
+  -webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;
+  color:var(--gold-deep)!important;text-shadow:none!important;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  animation:goldSweep 7s ease-in-out infinite;animation-delay:var(--fd,0s);
+  filter:drop-shadow(0 0 6px rgba(var(--glow),.25))}
+.foil-text.is-oscuro{background-image:var(--foil-dark)!important;color:var(--gold-lt)!important;
+  filter:drop-shadow(0 1px 1px rgba(10,16,28,.55)) drop-shadow(0 0 8px rgba(217,195,160,.35))}
+.foil-text *{-webkit-text-fill-color:transparent}
+@keyframes goldSweep{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.kx-flare{-webkit-text-fill-color:initial}
+
+/* polvo de luz fino alrededor de los títulos principales */
+.kx-polvo{position:absolute;inset:-14px -22px;pointer-events:none;z-index:0}
+.kx-polvo i{position:absolute;left:var(--x);top:var(--y);width:var(--z,3px);height:var(--z,3px);margin:calc(var(--z,3px)/-2);border-radius:50%;
+  background:radial-gradient(circle,#FFF6E0 0 30%,#C9A46A 55%,rgba(169,130,79,0) 72%);opacity:0;
+  animation:kxPolvo var(--t,4.2s) ease-in-out infinite;animation-delay:var(--d,0s)}
+.is-oscuro > .kx-polvo i,.kx-polvo.is-oscuro i{background:radial-gradient(circle,#FFFBEA 0 30%,#D9C3A0 55%,rgba(217,195,160,0) 72%)}
+@keyframes kxPolvo{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:.95;transform:scale(1.15)}60%{opacity:.5;transform:scale(.9)}}
+
+/* ── Detalles: barrido en filetes y divisores, botones con filo de cromo dorado ── */
+.gline{background:linear-gradient(to right,transparent,var(--gold),transparent)!important;height:1px}
+.gline::after{background:linear-gradient(90deg,transparent,rgba(255,246,226,.95),transparent)!important}
+.btn,.btn-blue,.loc-unified-btn,.hotel-cta,.rsvp-submit-btn{
+  box-shadow:0 0 0 1px rgba(217,195,160,.95),0 0 0 2px rgba(122,90,51,.18),0 10px 22px -10px rgba(169,130,79,.55),inset 0 1px 0 rgba(255,255,255,.55)!important}
+
+@media (prefers-reduced-motion:reduce){
+  .kx-flare b,.kx-rim i,.kx-sheen i,.kx-polvo i,.foil-text{animation:none!important}
+  .foil-text{background-position:50% 0!important}
+  .kx-flare b{opacity:.7;transform:none}
+  .kx-flare.is-mini b{opacity:.6}
+  .kx-polvo i{opacity:.55}
+  .gline::after{animation:none!important;opacity:0}
+}

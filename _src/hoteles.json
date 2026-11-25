@@ -1,0 +1,38 @@
+{
+  "recepcion": { "lat": 18.8358233, "lng": -99.2132066, "nombre": "Thesan Jardín, Tulio Estrada 125, Miguel Hidalgo, 62580 Temixco, Mor." },
+  "ceremonia": null,
+  "hoteles": [
+    {
+      "nombre": "Finca Los Ángeles",
+      "tipo": "Hotel con alberca (16 habitaciones)",
+      "direccion": "Tabachines 37, Lázaro Cárdenas, 62790 Chiconcuac, Mor.",
+      "lat": 18.7774261,
+      "lng": -99.2142935,
+      "fotos": [
+        "fotos-cliente/hotel-finca-angeles.jpg",
+        "fotos-cliente/hotel-finca-angeles-2.jpg",
+        "fotos-cliente/hotel-finca-angeles-3.jpg"
+      ],
+      "reservar": "https://www.facebook.com/FincadelosAngelesHotel",
+      "ubicacion": "https://www.google.com/maps/place/Tabachines+37,+Lazaro+Cardenas,+62790+Chiconcuac,+Mor./@18.7774261,-99.2142935,17z/data=!4m6!3m5!1s0x85cdd82248fba10f:0xeb7d33b6dde749ea!8m2!3d18.7774261!4d-99.2142935",
+      "mi": 5.8,
+      "min": 10
+    },
+    {
+      "nombre": "Hostería Las Quintas",
+      "tipo": "Hostería (121 suites)",
+      "direccion": "Blvd. Gustavo Díaz Ordaz 9, Cantarranas, 62448 Cuernavaca, Mor.",
+      "lat": 18.919265,
+      "lng": -99.2180414,
+      "fotos": [
+        "fotos-cliente/hotel-las-quintas.jpg",
+        "fotos-cliente/hotel-las-quintas-2.jpg",
+        "fotos-cliente/hotel-las-quintas-3.jpg"
+      ],
+      "reservar": "https://direct-book.com/properties/HosteriaLasQuintasHotelDirect?locale=es&currency=MXN",
+      "ubicacion": "https://www.google.com/maps/place/Hoster%C3%ADa+Las+Quintas/@18.919265,-99.2180414,17z/data=!4m6!3m5!1s0x85cddfa46be2ecef:0x24dbd51d84b7a4d6!8m2!3d18.919265!4d-99.2180414",
+      "mi": 6.8,
+      "min": 11
+    }
+  ]
+}

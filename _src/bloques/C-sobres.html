@@ -1,0 +1,69 @@
+<!-- INSERTAR: reemplaza en index.html la sección completa <section id="gifts"> ... </section> (líneas ~1595-1638; incluye Lluvia de sobres + CLABE + Liverpool; ya no lleva Venmo). El copiado de CLABE lo maneja C-sobres.js (el copyClabe() viejo puede quedarse o borrarse) -->
+<section id="gifts" aria-label="Mesa de regalos">
+  <div class="sbx-rain" id="sbxRain" aria-hidden="true"></div>
+
+  <div class="sbx-stage" id="sbxStage">
+    <span class="sbx-lbl">Detalles con amor</span>
+    <h2 class="sbx-title">Mesa de regalos</h2>
+    <div class="sbx-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="sbx-sub">Tu presencia es lo más importante para nosotros. Si además deseas tener un detalle con nosotros, estas son las opciones.</p>
+
+    <h3 class="sbx-h3">Lluvia de sobres</h3>
+    <button class="sbx-env" id="sbxEnv" type="button" aria-label="Sobre de regalo, toca para abrir" aria-expanded="false" aria-controls="sbxOpen">
+      <span class="sbx-body" id="sbxBody">
+        <svg class="sbx-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="sbxPaper" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F7EEDC"/><stop offset="1" stop-color="#FFFCF5"/></linearGradient>
+          </defs>
+          <rect x="18" y="52" width="224" height="132" rx="8" fill="url(#sbxPaper)" stroke="#A9824F" stroke-width="1.5"/>
+          <path d="M18 184 L130 110 L242 184" stroke="#A9824F" stroke-opacity=".55" stroke-width="1" fill="none"/>
+        </svg>
+        <span class="sbx-flap" aria-hidden="true">
+          <svg class="sbx-face sbx-front" viewBox="0 0 224 86" preserveAspectRatio="none">
+            <defs><linearGradient id="sbxFlapF" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F5EAD2"/><stop offset="1" stop-color="#FFFDF8"/></linearGradient></defs>
+            <path d="M0 0 L112 86 L224 0 Z" fill="url(#sbxFlapF)" stroke="#A9824F" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+          <svg class="sbx-face sbx-back" viewBox="0 0 224 86" preserveAspectRatio="none">
+            <path d="M0 0 L112 86 L224 0 Z" fill="#E9DBBE" stroke="#A9824F" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <svg class="sbx-seal" viewBox="0 0 60 60" aria-hidden="true">
+          <circle cx="30" cy="30" r="28" fill="#1F2E4A"/>
+          <circle cx="30" cy="30" r="28" fill="none" stroke="#0F1A2E" stroke-width="2" opacity=".5"/>
+          <circle cx="30" cy="30" r="21.5" fill="none" stroke="#D9C3A0" stroke-width="1.1" opacity=".9"/>
+          <text x="30" y="37.5" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="22" fill="#E7D3AA">L&amp;C</text>
+        </svg>
+      </span>
+    </button>
+    <div class="sbx-open" id="sbxOpen" aria-live="polite">
+      <div class="sbx-open-in">
+        <svg class="sbx-mail" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="8" y="22" width="36" height="24" rx="5"/><path d="M8 30 Q26 38 44 30"/><rect x="18" y="8" width="16" height="16" rx="2"/><path d="M18 8 Q26 3 34 8"/>
+        </svg>
+        <p class="sbx-open-t">Tu presencia es nuestro regalo</p>
+        <p class="sbx-open-d">El día del evento habrá un buzón donde podrás depositar tu sobre con mucho cariño.</p>
+      </div>
+    </div>
+    <button class="sbx-hint" id="sbxHint" type="button">Toca para abrir</button>
+  </div>
+
+  <div class="sbx-cards">
+    <div class="sbx-card">
+      <svg class="sbx-ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M12 8v13M3 13h18"/><path d="M12 8C10 8 7.5 7 7.5 5.2 7.5 3.8 9 3.2 10.3 4c1 .7 1.7 2.2 1.7 4zM12 8c2 0 4.5-1 4.5-2.8 0-1.4-1.5-2-2.8-1.2-1 .7-1.7 2.2-1.7 4z"/></svg>
+      <span class="sbx-ck">Mesa de regalos</span>
+      <p class="sbx-cn">Liverpool</p>
+      <p class="sbx-cl">Número de evento</p>
+      <p class="sbx-num">60060918</p>
+      <a class="sbx-btn" href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60060918" target="_blank" rel="noopener">Ver mesa de regalos</a>
+    </div>
+
+    <div class="sbx-card">
+      <svg class="sbx-ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10.5h19M6 15h4"/></svg>
+      <span class="sbx-ck">Transferencia bancaria</span>
+      <p class="sbx-cl">CLABE interbancaria</p>
+      <p class="sbx-num" id="sbxClabe" aria-label="CLABE 6 3 8 1 8 0 0 1 0 1 3 3 4 3 4 1 3 9">6381&nbsp;8001&nbsp;0133&nbsp;4341&nbsp;39</p>
+      <button class="sbx-btn" id="sbxCopy" type="button">Copiar CLABE</button>
+      <span class="sbx-ok" id="sbxOk" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,109 @@
+/* INSERTAR: al final del bloque <style> de index.html (quita el CSS de B-hospedaje.css y el viejo .hotels-wrap/.hotel-*). Hospedaje: lista con carrusel + selector Lista/Mapa + mapa Leaflet */
+#hospedaje{--hx-navy:#1F2E4A;--hx-teal:#2F5E7E;--hx-gold:#A9824F;--hx-gold-lt:#D9C3A0;--hx-gold-dp:#7A5A33;--hx-ink:#2B2B2B;--hx-ivory:#F6F2EC;
+  position:relative;overflow:hidden;text-align:center;padding:68px 22px 76px;
+  background:radial-gradient(110% 45% at 50% 0%,#FFFFFF 0%,rgba(255,255,255,0) 70%),radial-gradient(90% 40% at 50% 100%,#EFE6D8 0%,rgba(239,230,216,0) 75%),#F6F2EC}
+#hospedaje .hsx-lbl{display:block;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--hx-gold-dp)}
+#hospedaje .hsx-title{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(44px,12vw,54px);line-height:1.3;color:var(--hx-navy);padding:0 .15em;margin:6px 0 0;overflow:visible}
+#hospedaje .hsx-rule{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px auto 18px}
+#hospedaje .hsx-rule i{display:block;width:54px;height:1px;background:linear-gradient(90deg,transparent,var(--hx-gold))}
+#hospedaje .hsx-rule i:last-child{background:linear-gradient(90deg,var(--hx-gold),transparent)}
+#hospedaje .hsx-rule b{display:block;width:7px;height:7px;background:var(--hx-gold);transform:rotate(45deg)}
+#hospedaje .hsx-intro{font-family:'Jost',sans-serif;font-weight:500;font-size:17px;line-height:1.65;color:var(--hx-ink);max-width:310px;margin:0 auto 26px}
+
+/* selector Lista / Mapa en píldora con indicador deslizante */
+#hospedaje .hsx-seg{position:relative;display:grid;grid-template-columns:1fr 1fr;width:min(240px,100%);margin:0 auto 30px;padding:4px;border-radius:30px;
+  background:rgba(255,255,255,.8);border:1px solid rgba(169,130,79,.6);box-shadow:0 8px 22px -12px rgba(31,46,74,.35)}
+#hospedaje .hsx-ind{position:absolute;left:4px;top:4px;bottom:4px;width:calc(50% - 4px);border-radius:26px;background:linear-gradient(135deg,#2A3F63,var(--hx-navy));
+  box-shadow:0 4px 12px -4px rgba(31,46,74,.6),inset 0 0 0 1px rgba(217,195,160,.55);transition:transform .38s cubic-bezier(.3,.8,.25,1)}
+#hospedaje .hsx-seg[data-v="mapa"] .hsx-ind{transform:translateX(100%)}
+#hospedaje .hsx-seg button{position:relative;z-index:1;min-height:44px;border:0;background:none;cursor:pointer;border-radius:26px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  font-family:'Jost',sans-serif;font-weight:600;font-size:16px;letter-spacing:.06em;color:var(--hx-navy);transition:color .3s ease}
+#hospedaje .hsx-seg button[aria-selected="true"]{color:#FFFFFF}
+#hospedaje .hsx-seg button:focus-visible,#hospedaje .hsx-arrow:focus-visible,#hospedaje .hsx-dots button:focus-visible,#hospedaje .hsx-thumbs button:focus-visible,#hospedaje .hsx-b:focus-visible,#hospedaje .hsx-ctl button:focus-visible,#hospedaje .hsx-fx:focus-visible{outline:2px solid var(--hx-teal);outline-offset:3px}
+#hospedaje .hsx-view[hidden]{display:none!important}
+
+/* carrusel por hotel */
+#hospedaje .hsx-car{position:relative;max-width:380px;margin:0 auto}
+#hospedaje .hsx-viewport{overflow:hidden;touch-action:pan-y}
+#hospedaje .hsx-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+#hospedaje .hsx-slide{flex:0 0 100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:8px 24px}
+#hospedaje .hsx-photo{width:176px;height:176px;border-radius:50%;padding:3px;flex:0 0 auto;background:conic-gradient(from 200deg,#7A5A33,#D9C3A0,#F1E4C8,#A9824F,#7A5A33 55%,#D9C3A0,#7A5A33);box-shadow:0 14px 30px -10px rgba(31,46,74,.35)}
+#hospedaje .hsx-photo img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;background:#E8DFCF;transition:opacity .3s ease;user-select:none;-webkit-user-drag:none}
+#hospedaje .hsx-photo img.sw{opacity:0}
+#hospedaje .hsx-thumbs{display:flex;justify-content:center;gap:12px}
+#hospedaje .hsx-thumbs button{width:50px;height:50px;padding:0;border-radius:50%;border:2px solid transparent;background:none;cursor:pointer;overflow:hidden;opacity:.62;touch-action:manipulation;transition:opacity .25s ease,border-color .25s ease,transform .25s ease}
+#hospedaje .hsx-thumbs button.on{opacity:1;border-color:var(--hx-gold);transform:scale(1.06)}
+#hospedaje .hsx-thumbs img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+#hospedaje .hsx-type{font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--hx-gold-dp);margin-top:4px}
+#hospedaje .hsx-name{font-family:'Bodoni Moda',serif;font-weight:500;font-size:26px;line-height:1.2;color:var(--hx-navy);margin:0}
+#hospedaje .hsx-addr{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;line-height:1.55;color:var(--hx-ink);margin:0;max-width:280px}
+#hospedaje .hsx-dist{font-family:'Jost',sans-serif;font-weight:600;font-size:16px;letter-spacing:.03em;color:var(--hx-gold-dp);margin:0}
+#hospedaje .hsx-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:300px;margin-top:6px}
+#hospedaje .hsx-b{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 12px;border-radius:30px;text-decoration:none;cursor:pointer;touch-action:manipulation;
+  font-family:'Jost',sans-serif;font-weight:600;font-size:16px;letter-spacing:.02em;border:1px solid var(--hx-gold);transition:transform .2s ease}
+#hospedaje .hsx-b:active{transform:scale(.97)}
+#hospedaje .hsx-b1{background:var(--hx-navy);color:#FFFFFF;box-shadow:0 8px 18px -8px rgba(31,46,74,.55)}
+#hospedaje .hsx-b2{background:transparent;color:var(--hx-navy)}
+#hospedaje .hsx-arrow{position:absolute;top:100px;transform:translateY(-50%);z-index:2;width:42px;height:42px;display:flex;align-items:center;justify-content:center;padding:0;border-radius:50%;
+  background:rgba(255,255,255,.88);border:1px solid rgba(169,130,79,.7);color:var(--hx-navy);cursor:pointer;touch-action:manipulation;box-shadow:0 6px 14px -6px rgba(31,46,74,.35)}
+#hospedaje .hsx-arrow svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#hospedaje .hsx-prev{left:2px}#hospedaje .hsx-next{right:2px}
+#hospedaje .hsx-dots{display:flex;justify-content:center;gap:4px;margin-top:20px}
+#hospedaje .hsx-dots button{width:28px;height:28px;padding:0;border:0;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+#hospedaje .hsx-dots i{display:block;width:9px;height:9px;border-radius:50%;background:rgba(169,130,79,.4);transition:background .25s ease,transform .25s ease}
+#hospedaje .hsx-dots button.on i{background:var(--hx-gold-dp);transform:scale(1.3)}
+
+/* mapa: marco horizontal con borde metálico y viñeta */
+#hospedaje .hsx-frame{position:relative;max-width:560px;margin:0 auto;padding:2px;border-radius:28px;overflow:hidden;isolation:isolate;
+  background:conic-gradient(from 200deg,#7A5A33,#D9C3A0,#F1E4C8,#A9824F,#7A5A33 55%,#D9C3A0,#7A5A33);box-shadow:0 18px 40px -16px rgba(31,46,74,.45)}
+#hospedaje .hsx-frame::after{content:'';position:absolute;inset:2px;border-radius:26px;pointer-events:none;z-index:1050;box-shadow:inset 0 0 38px 6px rgba(8,14,26,.5)}
+#hospedaje .hsx-map{position:relative;width:100%;aspect-ratio:16/10;border-radius:26px;overflow:hidden;background:#0F1A2C;touch-action:pan-y;z-index:0}
+@media (max-width:560px){#hospedaje .hsx-map{aspect-ratio:4/3}}
+#hospedaje .hsx-map .leaflet-tile-pane{filter:sepia(.9) hue-rotate(178deg) saturate(1.5) brightness(1.18) contrast(1.05)}
+#hospedaje .hsx-map.leaflet-container{font-family:'Jost',sans-serif;background:#0F1A2C}
+#hospedaje .hsx-map .leaflet-control-attribution{background:rgba(15,26,44,.7);color:#C9D2E0;font-size:10px;line-height:1.4;padding:1px 7px;border-radius:8px 0 0 0;margin:0}
+#hospedaje .hsx-map .leaflet-control-attribution a{color:#C9D2E0}
+#hospedaje .hsx-map .leaflet-marker-icon{border:0;background:none}
+#hospedaje .hsx-pin{cursor:pointer;outline:none}
+#hospedaje .hsx-dot{position:absolute;left:50%;top:50%;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;border-radius:50%;box-sizing:border-box;
+  background:linear-gradient(135deg,#F1E4C8,#A9824F 55%,#7A5A33);border:1.5px solid rgba(255,255,255,.88);box-shadow:0 2px 6px rgba(0,0,0,.5);transition:transform .3s cubic-bezier(.3,.8,.25,1)}
+#hospedaje .hsx-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(217,195,160,.8);animation:hsxPulse 3.6s ease-out infinite}
+#hospedaje .hsx-pin.sel .hsx-dot{transform:scale(1.3)}
+@keyframes hsxPulse{0%{transform:scale(.7);opacity:.6}70%,100%{transform:scale(2.1);opacity:0}}
+#hospedaje .hsx-pill{position:absolute;left:0;top:0;transform:translate(-50%,calc(-100% - 7px));white-space:nowrap;pointer-events:none;
+  padding:5px 11px;border-radius:14px;background:#FFFDF8;color:var(--hx-navy);border:1px solid rgba(169,130,79,.8);box-shadow:0 4px 10px rgba(0,0,0,.35);
+  font-family:'Jost',sans-serif;font-weight:500;font-size:12.5px;line-height:1.3;letter-spacing:.02em}
+#hospedaje .hsx-pill::after{content:'';position:absolute;left:50%;bottom:-5px;width:8px;height:8px;margin-left:-4px;background:#FFFDF8;border:1px solid rgba(169,130,79,.8);border-width:0 1px 1px 0;transform:rotate(45deg)}
+
+#hospedaje .hsx-hint,#hospedaje .hsx-msg{position:absolute;left:50%;z-index:1100;transform:translateX(-50%);padding:6px 14px;border-radius:20px;white-space:nowrap;pointer-events:none;
+  background:rgba(255,253,248,.94);color:var(--hx-navy);border:1px solid rgba(169,130,79,.7);font-family:'Jost',sans-serif;font-weight:500;font-size:13px;line-height:1.3;transition:opacity .4s ease}
+#hospedaje .hsx-hint{bottom:14px}
+#hospedaje .hsx-msg{top:14px;opacity:0}
+#hospedaje .hsx-msg.on{opacity:1}
+#hospedaje .hsx-hint.off{opacity:0}
+#hospedaje .hsx-ctl{position:absolute;right:12px;top:12px;z-index:1100;display:flex;flex-direction:column;gap:8px}
+#hospedaje .hsx-ctl button{width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;touch-action:manipulation;
+  background:rgba(20,33,58,.88);border:1px solid rgba(217,195,160,.85);color:#F1E4C8;box-shadow:0 4px 10px rgba(0,0,0,.35)}
+#hospedaje .hsx-ctl svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ficha oscura desde abajo */
+#hospedaje .hsx-ficha{position:absolute;left:10px;right:10px;bottom:10px;z-index:1200;text-align:left;padding:10px 14px 12px;border-radius:18px;
+  background:rgba(16,27,48,.97);color:#FFFFFF;border:1px solid rgba(217,195,160,.6);box-shadow:0 16px 34px rgba(0,0,0,.5);
+  transform:translateY(130%);opacity:0;visibility:hidden;transition:transform .45s cubic-bezier(.3,.8,.25,1),opacity .3s ease,visibility 0s linear .45s}
+#hospedaje .hsx-ficha.on{transform:none;opacity:1;visibility:visible;transition:transform .45s cubic-bezier(.3,.8,.25,1),opacity .3s ease,visibility 0s}
+#hospedaje .hsx-fx{position:absolute;right:2px;top:2px;width:44px;height:44px;padding:0;border:0;background:none;color:#F1E4C8;cursor:pointer;display:flex;align-items:center;justify-content:center}
+#hospedaje .hsx-fx svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+#hospedaje .hsx-ft{display:block;font-family:'Jost',sans-serif;font-weight:600;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#D9C3A0;padding-right:40px}
+#hospedaje .hsx-fn{font-family:'Jost',sans-serif;font-weight:600;font-size:18px;line-height:1.2;color:#FFFFFF;margin:0 0 3px;padding-right:36px}
+#hospedaje .hsx-fa{font-family:'Jost',sans-serif;font-weight:500;font-size:15px;line-height:1.3;color:#E4E9F2;margin:0}
+#hospedaje .hsx-fd{font-family:'Jost',sans-serif;font-weight:600;font-size:15px;color:#E9D3A6;margin:3px 0 9px}
+#hospedaje .hsx-fb{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#hospedaje .hsx-ficha .hsx-b{min-height:40px;font-size:15px;padding:6px 10px;border-color:#D9C3A0}
+#hospedaje .hsx-ficha .hsx-b1{background:#D9C3A0;color:#14213A;box-shadow:none}
+#hospedaje .hsx-ficha .hsx-b2{background:transparent;color:#FFFFFF}
+
+@media (max-width:340px){#hospedaje{padding-left:14px;padding-right:14px}#hospedaje .hsx-slide{padding:8px 16px}#hospedaje .hsx-arrow{width:38px;height:38px}}
+@media (prefers-reduced-motion:reduce){
+  #hospedaje .hsx-dot::after{animation:none;opacity:0}
+  #hospedaje .hsx-track,#hospedaje .hsx-ind,#hospedaje .hsx-ficha,#hospedaje .hsx-dot,#hospedaje .hsx-photo img{transition:none!important}
+}

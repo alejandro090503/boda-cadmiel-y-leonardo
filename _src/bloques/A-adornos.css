@@ -1,0 +1,28 @@
+/* INSERTAR: antes de </style>, despues de A-tintas.css */
+/* Adornos florales PNG. Detras del contenido (z-index:-1, encima de la tinta -2), nunca sobre texto. Blur horneado en PIL, sin filter:blur. */
+.ad{position:absolute;z-index:-1;pointer-events:none;user-select:none;-webkit-user-drag:none;max-width:none;height:auto;display:block}
+.ad.f{animation:adFloat 7s ease-in-out infinite alternate;will-change:translate}
+.ad.f.s2{animation-duration:6s;animation-delay:-2.5s}
+.ad.f.s3{animation-duration:8s;animation-delay:-5s}
+.ad.b{opacity:.3}
+.ad.b.o2{opacity:.22}
+.ad.fx{scale:-1 1}
+@keyframes adFloat{from{translate:0 -6px}to{translate:0 6px}}
+/* posiciones por seccion (la seccion ya es relative + isolate por A-tintas.css) */
+#fecha .ad.r1{top:-6px;right:-26px;width:176px;rotate:8deg}
+#fecha .ad.b1{bottom:20px;left:-60px;width:260px;rotate:-12deg}
+#location .ad.e1{bottom:-4px;left:-14px;width:96px;rotate:-6deg}
+#location .ad.b1{top:30px;right:-70px;width:280px;rotate:10deg}
+#itinerary .ad.m1{top:0;right:0;width:200px}
+#itinerary .ad.b1{bottom:10px;left:-30px;width:170px;rotate:14deg}
+#dresscode .ad.a1{bottom:-12px;right:-34px;width:190px;rotate:-6deg}
+#dresscode .ad.b1{top:20px;left:-34px;width:220px}
+#gifts .ad.r1{top:-8px;left:-30px;width:190px;rotate:-10deg}
+#gifts .ad.b1{bottom:0;right:-60px;width:250px;rotate:8deg}
+#album .ad.e1{top:40px;right:-10px;width:92px;rotate:6deg}
+#album .ad.b1{bottom:10px;left:-70px;width:270px;rotate:-8deg}
+#family .ad.m1{top:0;left:0;width:190px}
+#family .ad.a1{bottom:-10px;right:-36px;width:180px;rotate:6deg}
+#rsvp .ad.r1{bottom:-6px;left:-28px;width:190px;rotate:6deg}
+#rsvp .ad.b1{top:10px;right:0;width:220px}
+@media (prefers-reduced-motion:reduce){.ad.f{animation:none}}

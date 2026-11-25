@@ -1,0 +1,58 @@
+/* INSERTAR: al final del bloque <style> de index.html. Lluvia de sobres + tarjetas de regalo */
+#gifts{--sx-navy:#1F2E4A;--sx-teal:#2F5E7E;--sx-gold:#A9824F;--sx-gold-lt:#D9C3A0;--sx-gold-dp:#7A5A33;--sx-ink:#2B2B2B;--sx-ivory:#F6F2EC;
+  position:relative;overflow:hidden;text-align:center;padding:68px 22px 80px;
+  background:radial-gradient(100% 40% at 50% 0%,#FFFFFF 0%,rgba(255,255,255,0) 70%),linear-gradient(180deg,#FFFFFF 0%,#F8F4EC 100%)}
+#gifts .sbx-rain{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#gifts .sbx-r{position:absolute;left:0;top:0;will-change:transform;backface-visibility:hidden}
+#gifts .sbx-stage,#gifts .sbx-cards{position:relative;z-index:1}
+#gifts .sbx-lbl{display:block;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--sx-gold-dp)}
+#gifts .sbx-title{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(44px,12vw,54px);line-height:1.3;color:var(--sx-navy);padding:0 .15em;margin:6px 0 0;overflow:visible}
+#gifts .sbx-rule{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px auto 20px}
+#gifts .sbx-rule i{display:block;width:54px;height:1px;background:linear-gradient(90deg,transparent,var(--sx-gold))}
+#gifts .sbx-rule i:last-child{background:linear-gradient(90deg,var(--sx-gold),transparent)}
+#gifts .sbx-rule b{display:block;width:7px;height:7px;background:var(--sx-gold);transform:rotate(45deg)}
+#gifts .sbx-sub{font-family:'Jost',sans-serif;font-weight:500;font-size:17px;line-height:1.65;color:var(--sx-ink);max-width:320px;margin:0 auto 34px}
+#gifts .sbx-h3{font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--sx-gold-dp);margin:0 0 4px}
+
+/* sobre con solapa 3D */
+#gifts .sbx-env{display:block;margin:44px auto 0;padding:10px;border:0;background:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;opacity:0}
+#gifts .sbx-env.landed{opacity:1}
+#gifts .sbx-env:focus-visible,#gifts .sbx-hint:focus-visible,#gifts .sbx-btn:focus-visible{outline:2px solid var(--sx-teal);outline-offset:4px}
+#gifts .sbx-body{display:block;position:relative;width:min(258px,70vw);aspect-ratio:260/200;perspective:700px;filter:drop-shadow(0 12px 22px rgba(31,46,74,.2))}
+#gifts .sbx-body.breathe{animation:sbxBreathe 3.6s ease-in-out infinite}
+@keyframes sbxBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+#gifts .sbx-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#gifts .sbx-flap{position:absolute;top:26%;left:6.9%;width:86.2%;height:43%;transform-origin:top center;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,0,.2,1);z-index:2;pointer-events:none}
+#gifts .sbx-env.open .sbx-flap{transform:rotateX(-175deg)}
+#gifts .sbx-face{position:absolute;inset:0;width:100%;height:100%;display:block;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+#gifts .sbx-back{transform:rotateX(180deg)}
+#gifts .sbx-seal{position:absolute;top:67%;left:50%;width:23%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:3;pointer-events:none;transition:opacity .35s ease,transform .5s cubic-bezier(.4,0,.2,1)}
+#gifts .sbx-env.open .sbx-seal{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+#gifts .sbx-open{overflow:hidden;max-height:0;opacity:0;transition:max-height .55s .25s ease,opacity .4s .3s ease}
+#gifts .sbx-open.on{max-height:320px;opacity:1}
+#gifts .sbx-open-in{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px 0;max-width:310px;margin:0 auto}
+#gifts .sbx-mail{width:40px;height:40px;color:var(--sx-gold-dp)}
+#gifts .sbx-open-t{font-family:'Great Vibes',cursive;font-size:clamp(32px,9vw,38px);line-height:1.3;color:var(--sx-navy);padding:0 .1em;margin:0}
+#gifts .sbx-open-d{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;line-height:1.65;color:var(--sx-ink);margin:0}
+#gifts .sbx-hint{display:inline-block;margin-top:14px;padding:12px 22px;min-height:44px;border:0;background:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  font-family:'Jost',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--sx-gold-dp);opacity:0;transition:opacity .5s ease}
+#gifts .sbx-hint.show{opacity:1;animation:sbxHint 2.4s ease-in-out infinite}
+@keyframes sbxHint{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* tarjetas */
+#gifts .sbx-cards{max-width:340px;margin:34px auto 0;display:flex;flex-direction:column;gap:22px}
+#gifts .sbx-card{position:relative;padding:28px 22px 26px;border-radius:16px;background:rgba(255,253,248,.92);border:1px solid rgba(169,130,79,.55);
+  box-shadow:0 14px 34px -14px rgba(31,46,74,.22),0 0 0 4px rgba(246,242,236,.6);display:flex;flex-direction:column;align-items:center}
+#gifts .sbx-ci{width:30px;height:30px;color:var(--sx-gold-dp);margin-bottom:6px}
+#gifts .sbx-ck{font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:3.5px;text-transform:uppercase;color:var(--sx-gold-dp)}
+#gifts .sbx-cn{font-family:'Bodoni Moda',serif;font-weight:500;font-size:28px;line-height:1.2;color:var(--sx-navy);margin:8px 0 0}
+#gifts .sbx-cl{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;color:var(--sx-ink);margin:14px 0 2px}
+#gifts .sbx-num{font-family:'Jost',sans-serif;font-weight:600;font-size:22px;letter-spacing:.06em;line-height:1.3;color:var(--sx-navy);margin:0 0 18px;word-break:break-word}
+#gifts .sbx-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 26px;border-radius:30px;border:1px solid var(--sx-gold);background:var(--sx-navy);color:#FFFFFF;text-decoration:none;cursor:pointer;touch-action:manipulation;
+  font-family:'Jost',sans-serif;font-weight:600;font-size:15px;letter-spacing:2px;text-transform:uppercase;box-shadow:0 8px 18px -8px rgba(31,46,74,.5)}
+#gifts .sbx-btn:active{transform:scale(.97)}
+#gifts .sbx-ok{min-height:22px;margin-top:10px;font-family:'Jost',sans-serif;font-weight:500;font-size:16px;color:var(--sx-gold-dp)}
+@media (prefers-reduced-motion:reduce){
+  #gifts .sbx-body.breathe,#gifts .sbx-hint.show{animation:none!important}
+  #gifts .sbx-flap,#gifts .sbx-seal,#gifts .sbx-open,#gifts .sbx-hint{transition:none!important}
+}

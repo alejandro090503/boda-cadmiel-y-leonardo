@@ -1,0 +1,13 @@
+/* INSERTAR: antes de </style> */
+#adultos{background:transparent;text-align:center}
+.adl-card{max-width:340px;margin:6px auto 0;padding:30px 24px;border:1px solid rgba(169,130,79,.55);border-radius:16px;background:linear-gradient(180deg,#FBF8F3,#F6F2EC);box-shadow:0 10px 30px rgba(31,46,74,.08)}
+.adl-ico{width:62px;height:62px;margin:0 auto 14px;color:var(--gold-deep)}
+.adl-ico-sm{width:64px;height:40px;margin-bottom:10px}
+.adl-ico svg{width:100%;height:100%;display:block}
+.adl-txt{font-family:'Jost',sans-serif;font-weight:500;font-size:17px;line-height:1.6;color:#1A1A1A;margin:0}
+.adl-txt strong{font-weight:600;color:var(--peach-accent)}
+.adl-tit{font-family:'Jost',sans-serif;font-weight:600;font-size:15px;letter-spacing:2.5px;text-transform:uppercase;color:var(--peach-accent);margin:0 0 8px;line-height:1.45}
+.adl-sep{display:flex;align-items:center;gap:10px;margin:20px auto;max-width:200px;color:var(--gold)}
+.adl-sep span{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.adl-sep span:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+.adl-sep i{font-style:normal;font-size:12px}

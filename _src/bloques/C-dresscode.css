@@ -1,0 +1,59 @@
+/* INSERTAR: al final del bloque <style> de index.html (después del CSS del paquete principal). Reemplaza al antiguo bloque DRESSCODE */
+#dresscode{--dx-navy:#1F2E4A;--dx-gold:#A9824F;--dx-gold-lt:#D9C3A0;--dx-gold-dp:#7A5A33;--dx-ink:#2B2B2B;
+  position:relative;overflow:hidden;text-align:center;padding:68px 22px 76px;
+  background:radial-gradient(120% 60% at 50% 0%,#FFFFFF 0%,rgba(255,255,255,0) 70%),radial-gradient(90% 50% at 50% 100%,#EFE6D8 0%,rgba(239,230,216,0) 75%),#F6F2EC}
+#dresscode .dcx-lbl{display:block;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--dx-gold-dp)}
+#dresscode .dcx-title{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(44px,12vw,54px);line-height:1.3;color:var(--dx-navy);padding:0 .15em;margin:6px 0 0;overflow:visible}
+#dresscode .dcx-formal{font-family:'Jost',sans-serif;font-weight:500;font-size:18px;letter-spacing:5px;text-transform:uppercase;color:var(--dx-navy);margin:4px 0 0}
+#dresscode .dcx-rule{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px auto 26px}
+#dresscode .dcx-rule i{display:block;width:54px;height:1px;background:linear-gradient(90deg,transparent,var(--dx-gold))}
+#dresscode .dcx-rule i:last-child{background:linear-gradient(90deg,var(--dx-gold),transparent)}
+#dresscode .dcx-rule b{display:block;width:7px;height:7px;background:var(--dx-gold);transform:rotate(45deg)}
+
+/* Figuras: 2 columnas, sin tarjetas, levitan con balanceo desde los pies */
+#dresscode .dcx-figs{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:380px;margin:0 auto 38px;align-items:end}
+#dresscode .dcx-fig{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+#dresscode .dcx-lev{position:relative;width:100%;display:flex;justify-content:center;transform-origin:50% 100%;
+  animation:dcxSway 6.4s ease-in-out infinite;animation-delay:var(--d,0s);will-change:transform}
+#dresscode .dcx-lev img{display:block;width:auto;height:min(300px,72vw);max-width:100%;object-fit:contain;filter:drop-shadow(0 10px 16px rgba(31,46,74,.18));user-select:none;-webkit-user-drag:none}
+#dresscode .dcx-fig figcaption{display:flex;flex-direction:column;align-items:center;gap:2px}
+#dresscode .dcx-role{font-family:'Great Vibes',cursive;font-size:36px;line-height:1.25;color:var(--dx-navy);padding:0 .1em}
+#dresscode .dcx-desc{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;letter-spacing:.06em;color:var(--dx-ink)}
+@keyframes dcxSway{0%,100%{transform:translateY(0) rotate(-1.4deg)}50%{transform:translateY(-9px) rotate(1.4deg)}}
+
+/* Colores */
+#dresscode .dcx-sub{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 0 22px;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:3.5px;text-transform:uppercase;color:var(--dx-gold-dp)}
+#dresscode .dcx-sub i{display:block;flex:0 0 34px;height:1px;background:linear-gradient(90deg,transparent,var(--dx-gold))}
+#dresscode .dcx-sub i:last-child{background:linear-gradient(90deg,var(--dx-gold),transparent)}
+#dresscode .dcx-sub2{margin-top:40px}
+#dresscode .dcx-balls{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,120px));justify-content:center;gap:24px 40px}
+#dresscode .dcx-sw{display:flex;flex-direction:column;align-items:center;gap:14px}
+#dresscode .dcx-ball{position:relative;display:block;width:66px;height:66px;border-radius:50%;background:var(--c);overflow:hidden;isolation:isolate;
+  box-shadow:inset 0 -7px 12px rgba(0,0,0,.14),inset 0 5px 9px rgba(255,255,255,.32),0 8px 18px rgba(31,46,74,.18),0 0 0 0 rgba(217,195,160,0);
+  animation:dcxFloat 5.2s ease-in-out infinite,dcxGlow 3.4s ease-in-out infinite;
+  animation-delay:calc(var(--i)*-1.7s),calc(var(--i)*-1.1s)}
+/* borde metálico fino (más marcado en blancos y claros) */
+#dresscode .dcx-ball::before{content:'';position:absolute;inset:0;border-radius:50%;padding:1.5px;z-index:2;pointer-events:none;
+  background:conic-gradient(from 210deg,#7A5A33,#D9C3A0,#F1E4C8,#A9824F,#7A5A33 60%,#D9C3A0,#7A5A33);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask-composite:exclude;opacity:.55}
+#dresscode .is-light .dcx-ball::before{opacity:1;padding:2px}
+/* barrido diagonal desfasado */
+#dresscode .dcx-ball::after{content:'';position:absolute;inset:-20% -60%;z-index:1;pointer-events:none;transform:translateX(-110%);
+  background:linear-gradient(115deg,transparent 40%,var(--sw,rgba(255,255,255,.4)) 50%,transparent 60%);
+  animation:dcxSweep 5.2s ease-in-out infinite;animation-delay:calc(var(--i)*1.6s + .4s)}
+#dresscode .dcx-name{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;line-height:1.3;color:var(--dx-navy)}
+#dresscode .dcx-note{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;line-height:1.6;color:var(--dx-ink);max-width:290px;margin:24px auto 0}
+@keyframes dcxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes dcxGlow{0%,100%{box-shadow:inset 0 -7px 12px rgba(0,0,0,.14),inset 0 5px 9px rgba(255,255,255,.32),0 8px 18px rgba(31,46,74,.18),0 0 0 0 rgba(217,195,160,0)}
+  50%{box-shadow:inset 0 -7px 12px rgba(0,0,0,.14),inset 0 5px 9px rgba(255,255,255,.32),0 8px 18px rgba(31,46,74,.18),0 0 20px 5px rgba(201,164,100,.6)}}
+@keyframes dcxSweep{0%,52%{transform:translateX(-110%)}78%,100%{transform:translateX(110%)}}
+
+/* Entrada (solo si el JS corre) */
+html.dcx-js #dresscode .dcx-rv{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+html.dcx-js #dresscode .dcx-rv.in{opacity:1;transform:none}
+#dresscode.is-off *,#dresscode.is-off *::after{animation-play-state:paused!important}
+@media (max-width:340px){#dresscode{padding-left:14px;padding-right:14px}#dresscode .dcx-balls{gap:22px 24px}}
+@media (prefers-reduced-motion:reduce){
+  #dresscode *,#dresscode *::after{animation:none!important;transition:none!important}
+  html.dcx-js #dresscode .dcx-rv{opacity:1;transform:none}
+}
