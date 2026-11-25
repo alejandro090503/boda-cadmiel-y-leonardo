@@ -2026,10 +2026,15 @@ html,body{background:#F6F2EC!important}
 #fecha .fch-headline,#fecha .fch-n1,#fecha .fch-amp,#fecha .fch-honor{text-align:center!important}
 #fecha .fch-amp{font-family:'Great Vibes',cursive!important;margin:6px 0 4px!important}
 #fecha .fch-honor{margin-top:24px!important}
-#itinerary .itx-row .itx-t{align-items:flex-start!important;text-align:left!important}
 
 #itinerary .itx-pc{font-size:14px!important;letter-spacing:1px!important;padding-left:8px}
 .rg-stage-in .rg-cta{margin:0 0 18px!important;position:relative;z-index:3;text-shadow:0 0 10px rgba(255,255,255,.95),0 0 3px #fff}
+/* Ubicación: las dos horas a la misma altura (la etiqueta de 2 renglones ya no sube la otra) */
+.loc-unified-times{align-items:stretch!important}
+.loc-time-block{display:flex!important;flex-direction:column!important;align-items:center!important}
+.loc-time-label{min-height:2.7em!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center}
+.loc-time-value{margin-top:auto!important}
+
 html{overflow-x:clip}
 body>section,body>footer{overflow-x:clip}
 </style>
@@ -2112,7 +2117,7 @@ body>section,body>footer{overflow-x:clip}
 <section id="countdown" class="is-seda">
   <canvas class="lp-seda"></canvas>
   <div class="cd-content">
-    <span class="cd-falta">faltan</span>
+    <span class="cd-falta">Faltan</span>
     <div class="cd-row" role="timer" aria-label="Cuenta regresiva para la boda">
       <div class="cd-cell">
         <span class="cd-num" id="cd-d">--</span>
@@ -2202,7 +2207,7 @@ body>section,body>footer{overflow-x:clip}
 <section id="calendar" class="is-seda">
   <canvas class="lp-seda"></canvas>
   <span class="lbl">No lo olvides</span>
-  <h2 class="ttl" style="font-size:26px">Guarda la Fecha</h2>
+  <h2 class="ttl" style="font-size:26px">Guarda la fecha</h2>
   <div class="gline"></div>
   <p class="cal-sub">Agrega nuestra boda a tu calendario<br>para no perderte ni un momento.</p>
   <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Boda+de+Leonardo+%26+Cadmiel&amp;dates=20270424T200000Z/20270425T040000Z&amp;details=Ceremonia+religiosa+2:00+PM+%C2%B7+Recepci%C3%B3n+3:50+PM.+Thesan+Jard%C3%ADn%2C+Temixco%2C+Morelos&amp;location=Thesan+Jard%C3%ADn%2C+Tulio+Estrada+125%2C+Miguel+Hidalgo%2C+62580+Temixco%2C+Mor."
@@ -2347,7 +2352,7 @@ body>section,body>footer{overflow-x:clip}
           <span class="itx-pl">Thesan Jardín</span>
         </div>
       </li>
-      <li class="itx-row itx-l itx-rv">
+      <li class="itx-row itx-r itx-rv">
         <div class="itx-h"><span class="itx-n">3:50</span><span class="itx-m">PM</span></div>
         <span class="itx-dot" aria-hidden="true"></span>
         <div class="itx-t">
@@ -2369,12 +2374,12 @@ body>section,body>footer{overflow-x:clip}
           <span class="itx-pl">Thesan Jardín</span>
         </div>
       </li>
-      <li class="itx-row itx-l itx-rv">
+      <li class="itx-row itx-r itx-rv">
         <div class="itx-h"><span class="itx-n itx-pc">Por confirmar</span></div>
         <span class="itx-dot" aria-hidden="true"></span>
         <div class="itx-t">
           <svg class="itx-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 8a3 3 0 1 1 0 .1M30 8a3 3 0 1 1 0 .1"/><path d="M18 13v11l-4 16M18 24l4 16M30 13l-2 9 6 18H22l4-18"/><path d="M18 17l12 0"/></svg>
-          <span class="itx-ev">Primer baile</span>
+          <span class="itx-ev">Primer vals</span>
           <span class="itx-pl">Thesan Jardín</span>
         </div>
       </li>
