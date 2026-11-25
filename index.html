@@ -1700,6 +1700,116 @@ body>section,body>footer{isolation:isolate}
 #album .alb-qr-wrap::before{top:calc(113px - 236px)!important}
 
 #itinerary .fl-bg{background-size:92% auto!important;background-position:right -70px top!important;opacity:.85}
+/* ===== LUZ PREMIUM (kit-efectos-elysium/luz) ===== */
+/* ═══ Luz Premium Elysium · aprobados (1, 2, 3, 8, 10, 12, 14) ═══
+   Copiar TAL CUAL. Solo se cambian las variables de color de :root de la invitación:
+   --lp-metal-1..5 (oscuro → brillo → oscuro del metálico), --lp-glow (r,g,b del brillo).
+   Rutas de assets: assets/flare.webp y assets/flare-mini.webp (los del kit, repintados con flares.py). */
+
+:root{
+  --lp-metal-1:#7D8494; --lp-metal-2:#AEB4C0; --lp-metal-3:#FBFCFD; --lp-metal-4:#DCE0E7; --lp-metal-5:#B9BFCB;
+  --lp-glow:220,226,240;
+}
+
+/* ── 1 · Destello con fantasmas de lente ──
+   <div class="lp-flare" data-x="18%" data-y="20%" data-s="1"></div> dentro de un contenedor position:relative */
+.lp-flare-wrap{position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden}
+.lp-fl{position:absolute;width:0;height:0}
+.lp-fl b{position:absolute;width:calc(220px*var(--s,1));height:calc(220px*var(--s,1));margin:calc(-110px*var(--s,1)) 0 0 calc(-110px*var(--s,1));
+  background:url(assets/flare.webp) center/contain no-repeat;opacity:.5;transform:scale(.72);
+  animation:lpBloom var(--dur,8s) cubic-bezier(.45,0,.3,1) infinite;animation-delay:var(--del,0s)}
+@keyframes lpBloom{0%,34%{opacity:.5;transform:scale(.72)}48%{opacity:1;transform:scale(1.12)}56%{opacity:.88;transform:scale(1)}74%,100%{opacity:.5;transform:scale(.72)}}
+.lp-ghost{position:absolute;border-radius:50%;opacity:0;mix-blend-mode:screen;animation:lpGhost var(--dur,8s) cubic-bezier(.45,0,.3,1) infinite;animation-delay:var(--del,0s)}
+.lp-ghost.hex{border-radius:0;clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%)}
+@keyframes lpGhost{0%,38%{opacity:0}50%{opacity:var(--o,.35)}62%,100%{opacity:0}}
+
+/* ── 2 · Destellos de diamante en las letras ── (el contenedor del texto lleva class="lp-glints") */
+.lp-glints{position:relative;display:inline-block}
+.lp-glint{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;background:url(assets/flare-mini.webp) center/contain no-repeat;pointer-events:none;z-index:4;opacity:0}
+
+/* ── 3 · Caída temática (canvas) ── <canvas class="lp-caida" data-sprites="assets/p1.webp,assets/p2.webp"></canvas> */
+.lp-caida{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+
+/* ── 8 · Cáusticas de cristal (WebGL) ── <canvas class="lp-causticas"></canvas> dentro de un contenedor relative */
+.lp-causticas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(70% 65% at 40% 40%,#000 30%,transparent 80%);mask-image:radial-gradient(70% 65% at 40% 40%,#000 30%,transparent 80%)}
+
+/* ── 10 · Cascada de brillo letra por letra ── (texto con class="lp-cascada"; el JS lo separa en letras) */
+.lp-cascada span{display:inline-block;
+  background-image:linear-gradient(104deg,transparent 30%,rgba(255,255,255,1) 50%,transparent 70%),
+    linear-gradient(178deg,var(--lp-metal-3) 6%,var(--lp-metal-4) 28%,var(--lp-metal-2) 46%,var(--lp-metal-1) 52%,var(--lp-metal-4) 62%,var(--lp-metal-3) 80%,var(--lp-metal-5) 98%);
+  background-size:300% 100%,100% 100%;background-repeat:no-repeat;background-position:150% 0,0 0;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:lpLetra 6s ease-in-out infinite;animation-delay:calc(var(--i)*90ms + var(--lp-del,0s));
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.45))}
+.lp-cascada span.sp{width:.3em}
+.lp-cascada{padding:.22em .45em;margin:-.22em -.45em;line-height:1.25}
+@keyframes lpLetra{0%,8%{background-position:150% 0,0 0}22%,100%{background-position:-60% 0,0 0}}
+/* En fondo claro: el pico del brillo no llega a blanco */
+.lp-claro .lp-cascada span,.lp-cascada.lp-claro span{background-image:linear-gradient(104deg,transparent 30%,var(--lp-metal-4) 50%,transparent 70%),
+    linear-gradient(178deg,var(--lp-metal-2) 6%,var(--lp-metal-1) 40%,var(--lp-metal-5) 62%,var(--lp-metal-1) 98%);filter:none}
+
+/* ── 12 · Niebla en capas ── <div class="lp-niebla"></div> dentro de una sección relative (el JS crea las 3 capas) */
+.lp-niebla{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.lp-niebla i{position:absolute;left:0;right:0;background-repeat:repeat-x;background-size:1024px 100%}
+.lp-niebla i:nth-child(1){top:30%;height:70%;opacity:.55;animation:lpNiebla 60s linear infinite}
+.lp-niebla i:nth-child(2){top:45%;height:60%;opacity:.4;animation:lpNiebla 38s linear infinite reverse}
+.lp-niebla i:nth-child(3){top:60%;height:45%;opacity:.7;animation:lpNiebla 26s linear infinite}
+@keyframes lpNiebla{to{background-position:-1024px 0}}
+
+/* ── 14 · Seda iluminada (WebGL compartido) ── fondo de sección: <canvas class="lp-seda"></canvas> como primer hijo */
+.lp-seda{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-2}
+
+@media (prefers-reduced-motion:reduce){
+  .lp-fl b,.lp-ghost,.lp-cascada span,.lp-niebla i{animation:none!important}
+}
+
+/* Metálico de la invitación: oro caramelo */
+:root{--lp-metal-1:#7A5A33;--lp-metal-2:#A9824F;--lp-metal-3:#F6E7C8;--lp-metal-4:#D9C3A0;--lp-metal-5:#A9824F;--lp-glow:217,195,160}
+.lp-fl b{background-image:url(assets/flare-oro.webp)}
+#hero .kx-flare,.rsvp-form-wrap .kx-flare{display:none!important}
+.rsvp-form-wrap{position:relative}
+#hero .lp-caida,#hero .lp-niebla{z-index:3}
+#hero .h-cnt{z-index:6}
+#hero .lp-niebla{top:55%}
+#footer{position:relative;isolation:isolate}
+#footer .lp-niebla{top:40%;opacity:.8}
+#footer .lp-caida{z-index:1}
+#footer .ft-body{position:relative;z-index:3}
+.h-names .lp-cascada,.ft-names .lp-cascada{-webkit-text-fill-color:initial;text-shadow:none!important}
+.ft-names{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(24px,6.6vw,30px);letter-spacing:5px;text-transform:uppercase;line-height:1.3;margin:0 0 14px}
+.ft-names i{font-family:'Great Vibes',cursive;font-style:normal;text-transform:none;letter-spacing:0;font-size:1.25em;color:var(--gold-deep);padding:0 .15em}
+/* Secciones con seda (fondo navy/petróleo): texto claro */
+.is-seda{background:transparent!important;isolation:isolate;position:relative}
+.is-seda .fl-bg,.is-seda .ad.b{display:none!important}
+.is-seda .lbl{color:#E9D6B3!important}
+.is-seda .ttl,.is-seda .ttl.foil-text,.is-seda .cd-falta,.is-seda .itx-title,.is-seda h2{background:none!important;color:#F6F2EC!important;-webkit-text-fill-color:#F6F2EC!important;text-shadow:0 2px 14px rgba(10,20,36,.55)!important}
+.is-seda .gline{background:linear-gradient(to right,transparent,#D9C3A0,transparent)!important}
+.is-seda p,.is-seda .cal-sub,.is-seda .alb-hint,.is-seda .rsvp-sub,.is-seda .rsvp-date-big,.is-seda .rsvp-para-note,.is-seda #rsvp-feedback{color:#F6F2EC!important;-webkit-text-fill-color:#F6F2EC!important;text-shadow:0 1px 10px rgba(10,20,36,.6)}
+.is-seda .rsvp-dl{color:#F1DDB6!important;-webkit-text-fill-color:#F1DDB6!important}
+.is-seda .btn-blue{background:#F6F2EC!important;color:#1F2E4A!important;border-color:#D9C3A0!important}
+.is-seda .btn:not(.btn-blue){color:#F6F2EC!important;border-color:#D9C3A0!important}
+.is-seda .adl-card p,.is-seda .cd-cell *,.is-seda .rsvp-pases-display *,.is-seda .rsvp-toggle-btn{text-shadow:none}
+.is-seda .adl-card .adl-txt{color:#1A1A1A!important;-webkit-text-fill-color:#1A1A1A!important}
+.is-seda .adl-card .adl-tit,.is-seda .rsvp-pases-display *{color:#1F2E4A!important;-webkit-text-fill-color:#1F2E4A!important}
+.is-seda .rsvp-toggle-btn{background:rgba(246,242,236,.92)!important}
+.is-seda .rsvp-toggle-btn.rsvp-toggle-selected-yes,.is-seda .rsvp-toggle-btn.rsvp-toggle-selected-no{background:#F1DDB6!important}
+#album.is-seda .alb-qr-wrap::before{display:none!important}
+#album.is-seda .alb-qr-wrap{margin-top:10px!important}
+#hospedaje,#dresscode,#gifts{padding-top:175px!important}
+#itinerary{padding-top:80px!important}
+
+/* ajustes luz premium */
+.lp-cascada{white-space:nowrap}
+.h-names,.ft-names{font-size:clamp(21px,5.8vw,27px)!important;letter-spacing:3px!important}
+.is-seda .itx-lbl{color:#E9D6B3!important;-webkit-text-fill-color:#E9D6B3!important}
+.is-seda .itx-n,.is-seda .itx-ev{color:#F6F2EC!important;-webkit-text-fill-color:#F6F2EC!important;background:none!important;text-shadow:0 1px 10px rgba(10,20,36,.6)}
+.is-seda .itx-m{color:#E9D6B3!important;-webkit-text-fill-color:#E9D6B3!important}
+.is-seda .itx-pl{color:#DCE6EE!important;-webkit-text-fill-color:#DCE6EE!important}
+.is-seda svg{color:#E9D6B3}
+#countdown.is-seda .cd-falta{color:#F6F2EC!important;-webkit-text-fill-color:#F6F2EC!important;text-shadow:0 2px 14px rgba(10,20,36,.55)!important}
+
+#footer .ft-body{padding-bottom:200px!important}
 html{overflow-x:clip}
 body>section,body>footer{overflow-x:clip}
 </style>
@@ -1744,14 +1854,17 @@ body>section,body>footer{overflow-x:clip}
 
 
 <!-- ═══════════════ 1. HERO ════════════════════════════ -->
-<section id="hero">
+<section id="hero" class="lp-claro">
+  <div class="lp-flare" data-x="18%" data-y="20%"></div>
   <div class="h-bg" id="heroBg">
     <img src="fotos-cliente/foto-15.jpg" alt="Leonardo y Cadmiel" loading="eager">
   </div>
   <div class="h-ov"></div>
+  <div class="lp-niebla"></div>
+  <canvas class="lp-caida" data-sprites="assets/petalo-marfil-1.webp,assets/petalo-oro-1.webp,assets/petalo-teal-1.webp,assets/petalo-marfil-2.webp,assets/petalo-oro-2.webp,assets/petalo-teal-2.webp"></canvas>
   <div class="h-cnt" id="hCnt">
     <p class="h-monogram" id="hMono"><span class="mono-k">L</span><span class="mono-amp">&amp;</span><span class="mono-m">C</span></p>
-    <p class="h-names" id="hNames">Leonardo <i>&amp;</i> Cadmiel</p>
+    <p class="h-names lp-glints" id="hNames"><span class="lp-cascada">Leonardo</span> <i>&amp;</i> <span class="lp-cascada">Cadmiel</span></p>
     <p class="h-meta" id="hMeta">Temixco, Morelos<b>24 · 04 · 2027</b></p>
   </div>
   <div class="h-scroll" id="hScroll">
@@ -1778,7 +1891,8 @@ body>section,body>footer{overflow-x:clip}
 
 
 <!-- ═══════════════ 2. CUENTA REGRESIVA ══════════════ -->
-<section id="countdown">
+<section id="countdown" data-top="rgb(39,70,100)" data-bot="rgb(39,70,100)" class="is-seda">
+  <canvas class="lp-seda"></canvas>
   <div class="cd-content">
     <span class="cd-falta">Faltan</span>
     <div class="cd-row" role="timer" aria-label="Cuenta regresiva para la boda">
@@ -1867,8 +1981,8 @@ body>section,body>footer{overflow-x:clip}
 
 
 <!-- ═══════════════ 4. CALENDAR ══════════════════════ -->
-<section id="calendar">
-  <div class="fl-bg" aria-hidden="true"></div>
+<section id="calendar" data-top="rgb(39,70,100)" data-bot="rgb(39,70,100)" class="is-seda">
+  <canvas class="lp-seda"></canvas>
   <span class="lbl">No lo olvides</span>
   <h2 class="ttl" style="font-size:26px">Guarda la Fecha</h2>
   <div class="gline"></div>
@@ -1981,8 +2095,8 @@ body>section,body>footer{overflow-x:clip}
 
 
 <!-- ═══════════════ 5. ITINERARIO ════════════════════ -->
-<section id="itinerary" aria-label="Itinerario">
-  <div class="fl-bg" aria-hidden="true"></div>
+<section id="itinerary" aria-label="Itinerario" data-top="rgb(39,70,100)" data-bot="rgb(39,70,100)" class="is-seda">
+  <canvas class="lp-seda"></canvas>
   <img class="ad f s3 m1" src="assets/flor-peonia.webp" alt="" aria-hidden="true" onerror="this.remove()">
 <img class="ad b b1" src="assets/flor-rosas-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <span class="itx-lbl itx-rv">Nuestro día</span>
@@ -2084,8 +2198,8 @@ body>section,body>footer{overflow-x:clip}
 
 <!-- ═══════════════ 7. MESA DE REGALOS ══════════════ -->
 <!-- ═══════════════ AVISO: SOLO ADULTOS + BOLETOS PERSONALES ═══════════════ -->
-<section id="adultos">
-  <div class="fl-bg" aria-hidden="true"></div>
+<section id="adultos" data-top="rgb(39,70,100)" data-bot="rgb(39,70,100)" class="is-seda">
+  <canvas class="lp-seda"></canvas>
   <span class="lbl">Aviso importante</span>
   <h2 class="ttl">Solo adultos</h2>
   <div class="gline"></div>
@@ -2187,7 +2301,8 @@ body>section,body>footer{overflow-x:clip}
 
 
 <!-- ═══════════════ 8. ÁLBUM COMPARTIDO ══════════════ -->
-<section id="album">
+<section id="album" data-top="rgb(39,70,100)" data-bot="rgb(39,70,100)" class="is-seda">
+  <canvas class="lp-seda"></canvas>
   <img class="ad f s3 e1" src="assets/flor-rosas.webp" alt="" aria-hidden="true" onerror="this.remove()">
 <img class="ad b o2 b1" src="assets/flor-rosa-azul-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <span class="lbl">Captura cada momento</span>
@@ -2293,8 +2408,8 @@ body>section,body>footer{overflow-x:clip}
 
 
 <!-- ═══════════════ 10. RSVP ════════════════════════ -->
-<section id="rsvp">
-  <div class="fl-bg" aria-hidden="true"></div>
+<section id="rsvp" data-top="rgb(39,70,100)" data-bot="rgb(39,70,100)" class="is-seda">
+  <canvas class="lp-seda"></canvas>
   <img class="ad f s3 r1" src="assets/flor-peonia.webp" alt="" aria-hidden="true" onerror="this.remove()">
 <img class="ad b o2 b1" src="assets/flor-hortensia-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <span class="lbl">Confirmación de asistencia</span>
@@ -2308,6 +2423,7 @@ body>section,body>footer{overflow-x:clip}
   </p>
 
   <div class="rsvp-form-wrap">
+    <div class="lp-flare" data-x="82%" data-y="12%" data-s=".8"></div>
     <p style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--cream);opacity:.78;line-height:1.7;margin:6px 0 22px;letter-spacing:.3px;">Tu presencia hará este día aún más especial.</p>
 
     <p class="rsvp-para-note" id="rsvpParaNote" style="display:none"></p>
@@ -2334,12 +2450,15 @@ body>section,body>footer{overflow-x:clip}
 
 
 <!-- ═══════════════ 11. FOOTER ═══════════════════════ -->
-<footer id="footer">
+<footer id="footer" class="lp-claro">
+  <div class="lp-niebla"></div>
+  <canvas class="lp-caida" data-n="10" data-sprites="assets/petalo-marfil-1.webp,assets/petalo-oro-1.webp,assets/petalo-teal-1.webp,assets/petalo-marfil-2.webp,assets/petalo-oro-2.webp,assets/petalo-teal-2.webp"></canvas>
   <div class="fl-bg" aria-hidden="true"></div>
   <div class="ft-roses">
     <img src="footer-roses.jpeg" alt="" loading="lazy">
   </div>
   <div class="ft-body">
+    <p class="ft-names"><span class="lp-cascada">Leonardo</span> <i>&amp;</i> <span class="lp-cascada">Cadmiel</span></p>
     <p class="ft-msg">Te esperamos con mucho cariño...</p>
     <p class="ft-nofaltes">¡No Faltes!</p>
     <p class="ft-date">Temixco, Morelos · 24 de abril de 2027</p>
@@ -3458,7 +3577,7 @@ function ambientWind(){
 (function(){
   if(!window.gsap) return;
   if(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  var N = innerWidth < 700 ? 14 : 26;
+  var N = innerWidth < 700 ? 6 : 12;
   var layer = document.createElement('div');
   layer.setAttribute('aria-hidden','true');
   layer.style.cssText = 'position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2;perspective:600px';
@@ -3509,7 +3628,7 @@ function ambientWind(){
     bg.insertBefore(dr, img); dr.appendChild(img);
     var sh = document.createElement('div'); sh.className = 'h-shine'; sh.setAttribute('aria-hidden','true');
     var html = '<div class="h-glow g1"></div><div class="h-glow g2"></div><div class="h-glow g3"></div><div class="h-glow g4"></div><div class="h-lens"></div><div class="h-vig"></div>';
-    for (var i = 0; i < 15; i++) {
+    for (var i = 0; i < 7; i++) {
       var sz = 2 + Math.random() * 2;
       html += '<span class="h-dot" style="left:' + (4 + Math.random() * 92).toFixed(1) + '%;width:' + sz.toFixed(1) + 'px;height:' + sz.toFixed(1) + 'px;animation-duration:' + (9 + Math.random() * 9).toFixed(1) + 's;animation-delay:-' + (Math.random() * 16).toFixed(1) + 's"></span>';
     }
@@ -4141,6 +4260,117 @@ function ambientWind(){
   }
   alAbrir(function(){ setTimeout(init, 120); });   /* después de D-vivo (crea las rosas) */
 })();
+</script>
+<script>window.LP_CONFIG={flareMini:'assets/flare-oro-mini.webp',seda:{sombra:'#1F2E4A',base:'#2F5E7E',luz:'#F6F2EC'},niebla:'246,242,236'};</script>
+<script>
+/* ═══ Luz Premium Elysium · aprobados (1, 2, 3, 8, 10, 12, 14) ═══
+   Copiar TAL CUAL al final del <body> (después del HTML de las secciones).
+   Configuración por invitación, ANTES de este script:
+     window.LP_CONFIG = {
+       flareMini: 'assets/flare-mini.webp',
+       seda: { sombra:'#3B2F4A', base:'#B9A6C9', luz:'#FFF4E6' },   // 3 tonos de la paleta (oscuro, medio, brillo)
+       causticas: '#FFF8E4'                                       // color de la luz
+     };
+   Todo se pausa fuera de pantalla y con la pestaña oculta; con prefers-reduced-motion queda en un cuadro fijo. */
+(function(){
+  var C=window.LP_CONFIG||{}, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function vis(el,cb){if(!('IntersectionObserver' in window)){cb(true);return}new IntersectionObserver(function(es){es.forEach(function(e){cb(e.isIntersecting)})},{rootMargin:'120px'}).observe(el)}
+  function hidden(){return document.hidden}
+  function hex(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');return[parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255]}
+  function fit(c,scale,max){var r=c.getBoundingClientRect(),d=Math.min(max||2,devicePixelRatio||1)*(scale||1);c.width=Math.max(1,Math.round(r.width*d));c.height=Math.max(1,Math.round(r.height*d));return d}
+  function img(s){var i=new Image();i.src=s;return i}
+  var FM=img(C.flareMini||'assets/flare-mini.webp');
+
+  /* 1 · destello + fantasmas a lo largo del eje que cruza el centro del contenedor */
+  document.querySelectorAll('.lp-flare').forEach(function(host,idx){
+    var box=host.parentElement, wrap=document.createElement('div');wrap.className='lp-flare-wrap';box.appendChild(wrap);host.remove();
+    var del=(-idx*2.9)+'s', s=parseFloat(host.dataset.s||1);
+    function build(){wrap.innerHTML='';var W=box.clientWidth,H=box.clientHeight,fx=W*parseFloat(host.dataset.x||18)/100,fy=H*parseFloat(host.dataset.y||20)/100,cx=W/2,cy=H/2;
+      var f=document.createElement('div');f.className='lp-fl';f.style.cssText='left:'+fx+'px;top:'+fy+'px;--s:'+s+';--del:'+del;f.innerHTML='<b></b>';wrap.appendChild(f);
+      [[.55,14,'255,236,200',.4,0],[.85,34,'170,220,255',.28,1],[1.15,10,'255,255,255',.45,0],[1.4,56,'255,190,210',.22,1],[1.7,22,'200,255,230',.3,0]].forEach(function(q){
+        var g=document.createElement('i');g.className='lp-ghost'+(q[4]?' hex':'');var k=q[0]*1.67,x=fx+(cx-fx)*k,y=fy+(cy-fy)*k,z=q[1]*s;
+        g.style.cssText='left:'+(x-z/2)+'px;top:'+(y-z/2)+'px;width:'+z+'px;height:'+z+'px;--o:'+q[3]+';--del:'+del+';background:radial-gradient(circle,rgba('+q[2]+',.9) 0 40%,transparent 72%)';wrap.appendChild(g)})}
+    build();addEventListener('resize',build)});
+
+  /* 2 · chispas de diamante en el filo superior de las letras, una a la vez */
+  document.querySelectorAll('.lp-glints').forEach(function(gb,idx){var on=false;vis(gb,function(v){on=v});
+    function glint(){ if(on&&!reduce&&!hidden()){var w=gb.clientWidth,h=gb.clientHeight,d=document.createElement('i');d.className='lp-glint';
+      d.style.left=(w*.12+Math.random()*w*.76)+'px';d.style.top=(h*.22+Math.random()*h*.3)+'px';gb.appendChild(d);
+      d.animate([{opacity:0,transform:'scale(.2) rotate(-25deg)'},{opacity:1,transform:'scale(1) rotate(0)'},{opacity:0,transform:'scale(.2) rotate(25deg)'}],{duration:1100,easing:'ease-in-out'}).onfinish=function(){d.remove()}}
+      setTimeout(glint,700+Math.random()*900)}
+    setTimeout(glint,idx*400)});
+
+  /* 3 · caída temática: giro 3D + destello cuando la cara mira a la luz */
+  document.querySelectorAll('.lp-caida').forEach(function(c){
+    var x=c.getContext('2d'),d=fit(c),on=false,S=(c.dataset.sprites||'').split(',').filter(Boolean).map(img),n=parseInt(c.dataset.n||(innerWidth<600?14:20)),P=[];
+    for(var i=0;i<n;i++){var z=Math.random();P.push({x:Math.random(),y:Math.random()*1.1-.1,z:z,v:.025+z*.035,s:16+z*22,r:Math.random()*6.28,sp:(Math.random()-.5)*.8,a:Math.random()*6.28,w:1.2+Math.random()*1.8,k:i,ph:Math.random()*6.28})}
+    vis(c,function(v){on=v});addEventListener('resize',function(){d=fit(c)});
+    (function loop(t){ if(on&&!hidden()&&S.length){var W=c.width,H=c.height;x.clearRect(0,0,W,H);
+      P.forEach(function(p){ if(!reduce){p.y+=p.v/60;if(p.y>1.1){p.y=-.1;p.x=Math.random()}p.a+=p.w/60;p.r+=p.sp/60}
+        var im=S[p.k%S.length];if(!im.complete||!im.naturalWidth)return;
+        var X=(p.x+Math.sin(t/1800+p.ph)*.03)*W,Y=p.y*H,sz=p.s*d,ar=im.naturalHeight/im.naturalWidth,fl=Math.cos(p.a),face=Math.pow(Math.max(0,fl),14);
+        x.save();x.translate(X,Y);x.rotate(p.r);x.scale(Math.max(.14,Math.abs(fl))*(fl<0?-1:1),1);
+        x.globalAlpha=.5+p.z*.4;x.drawImage(im,-sz/2,-sz*ar/2,sz,sz*ar);
+        if(face>.05){x.globalCompositeOperation='lighter';x.globalAlpha=face*.7;x.drawImage(im,-sz/2,-sz*ar/2,sz,sz*ar);x.globalCompositeOperation='source-over'}
+        x.restore();
+        if(face>.7&&FM.complete){x.globalAlpha=(face-.7)/.3;var zz=sz*1.6;x.drawImage(FM,X-zz/2+sz*.15,Y-zz/2-sz*.15,zz,zz)}});
+      x.globalAlpha=1} requestAnimationFrame(loop)})(0)});
+
+  /* WebGL: utilidades */
+  function prog(gl,fs){var vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o}
+    var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+    var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var l=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);return pr}
+  var HP='#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n';
+
+  /* 8 · cáusticas en GPU (una sola canvas por escena) */
+  document.querySelectorAll('.lp-causticas').forEach(function(c){
+    var gl=c.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false});if(!gl){c.remove();return}
+    var pr=prog(gl,HP+'uniform vec2 res;uniform float t;uniform vec3 col;void main(){vec2 uv=gl_FragCoord.xy/res;float time=t*.35+23.;vec2 p=uv*6.28318*vec2(1.4*res.x/res.y/1.5,1.)-250.;vec2 i=p;float c=1.;float inten=.005;'+
+      'for(int n=0;n<5;n++){float tt=time*(1.-(3.5/float(n+1)));i=p+vec2(cos(tt-i.x)+sin(tt+i.y),sin(tt-i.y)+cos(tt+i.x));c+=1./length(vec2(p.x/(sin(i.x+tt)/inten),p.y/(cos(i.y+tt)/inten)));}'+
+      'c/=5.;c=1.17-pow(c,1.4);float v=clamp(pow(abs(c),8.),0.,1.);gl_FragColor=vec4(col*v,v*.92);}');
+    var uR=gl.getUniformLocation(pr,'res'),uT=gl.getUniformLocation(pr,'t'),uC=gl.getUniformLocation(pr,'col'),on=false,col=hex(C.causticas||'#FFF8E4');
+    function size(){fit(c,.75,1.5);gl.viewport(0,0,c.width,c.height)}size();addEventListener('resize',size);vis(c,function(v){on=v});
+    (function loop(t){ if((on&&!hidden())||t===0){gl.uniform2f(uR,c.width,c.height);gl.uniform1f(uT,reduce?0:t/1000);gl.uniform3f(uC,col[0],col[1],col[2]);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+      requestAnimationFrame(loop)})(0)});
+
+  /* 10 · cascada: separa el texto en letras */
+  document.querySelectorAll('.lp-cascada').forEach(function(el){var t=el.textContent;el.textContent='';el.setAttribute('aria-label',t);
+    t.split('').forEach(function(ch,i){var s=document.createElement('span');s.setAttribute('aria-hidden','true');s.style.setProperty('--i',i);if(ch===' '){s.className='sp';s.innerHTML='&nbsp;'}else s.textContent=ch;el.appendChild(s)})});
+
+  /* 12 · niebla: textura generada UNA vez y compartida por todas las capas */
+  var nieblas=document.querySelectorAll('.lp-niebla');
+  if(nieblas.length){var w=512,h=160,cv=document.createElement('canvas');cv.width=w;cv.height=h;var g=cv.getContext('2d'),tono=C.niebla||'236,240,246';
+    function blob(x,y,r,a){var gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,'rgba('+tono+','+a+')');gr.addColorStop(1,'rgba('+tono+',0)');g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,6.29);g.fill()}
+    for(var i=0;i<140;i++){var X=Math.random()*w,Y=h*.35+Math.random()*h*.6,R=20+Math.random()*60,A=.05+Math.random()*.12;blob(X,Y,R,A);blob(X-w,Y,R,A);blob(X+w,Y,R,A)}
+    var url='url('+cv.toDataURL()+')';nieblas.forEach(function(n){for(var k=0;k<3;k++){var l=document.createElement('i');l.style.backgroundImage=url;n.appendChild(l)}})}
+
+  /* 14 · seda iluminada: UN contexto WebGL compartido que dibuja cada sección visible y la copia a su canvas 2D */
+  var sedas=[].slice.call(document.querySelectorAll('.lp-seda'));
+  if(sedas.length){var G=document.createElement('canvas'),gl=G.getContext('webgl',{preserveDrawingBuffer:true,antialias:false});
+    if(!gl){sedas.forEach(function(s){s.remove()})}else{
+      var pr=prog(gl,HP+'uniform vec2 res;uniform float t;uniform float seed;uniform vec3 cS,cB,cL;'+
+        'float h(vec2 p){return sin(p.x*3.1+p.y*1.3+t*.6)*.55+sin(p.x*1.7-p.y*2.2-t*.45)*.35+sin(p.x*5.3+p.y*.7+t*.8)*.12;}'+
+        'void main(){vec2 uv=gl_FragCoord.xy/res;vec2 p=vec2(uv.x*2.,uv.y*1.4*(res.y/res.x)*1.4)+seed;float e=.01;'+
+        'float hx=(h(p+vec2(e,0.))-h(p-vec2(e,0.)))/(2.*e),hy=(h(p+vec2(0.,e))-h(p-vec2(0.,e)))/(2.*e);'+
+        'vec3 n=normalize(vec3(-hx*.35,-hy*.35,1.));vec3 l=normalize(vec3(cos(t*.25)*.7,.5,.6));float dif=max(0.,dot(n,l));'+
+        'vec3 hv=normalize(l+vec3(0.,0.,1.));float spec=pow(max(0.,dot(n,hv)),40.);'+
+        'vec3 col=mix(cS,cB,.25+dif*.75)+cL*spec*.32+cL*pow(dif,8.)*.06;gl_FragColor=vec4(min(col,vec3(1.)),1.);}');
+      var u={r:gl.getUniformLocation(pr,'res'),t:gl.getUniformLocation(pr,'t'),s:gl.getUniformLocation(pr,'seed'),S:gl.getUniformLocation(pr,'cS'),B:gl.getUniformLocation(pr,'cB'),L:gl.getUniformLocation(pr,'cL')};
+      var items=sedas.map(function(cv,i){var pal=Object.assign({sombra:'#4A3B2E',base:'#C9A97E',luz:'#FFF4E0'},C.seda||{},{sombra:cv.dataset.sombra||(C.seda||{}).sombra,base:cv.dataset.base||(C.seda||{}).base,luz:cv.dataset.luz||(C.seda||{}).luz});
+        Object.keys(pal).forEach(function(k){if(!pal[k])delete pal[k]});pal=Object.assign({sombra:'#4A3B2E',base:'#C9A97E',luz:'#FFF4E0'},pal);
+        var it={cv:cv,x:cv.getContext('2d'),on:false,seed:i*3.7,S:hex(pal.sombra),B:hex(pal.base),L:hex(pal.luz),first:true};
+        function sz(){var r=cv.getBoundingClientRect();cv.width=Math.max(2,Math.round(r.width*.5));cv.height=Math.max(2,Math.round(r.height*.5))}sz();addEventListener('resize',function(){sz();it.first=true});
+        vis(cv,function(v){it.on=v});return it});
+      var fr=0;
+      (function loop(t){ if(!hidden()&&((fr++&1)===0)){items.forEach(function(it){ if(!(it.on||it.first))return; if(reduce&&!it.first)return; it.first=false;
+          var w=it.cv.width,h=it.cv.height;if(G.width!==w||G.height!==h){G.width=w;G.height=h}gl.viewport(0,0,w,h);
+          gl.uniform2f(u.r,w,h);gl.uniform1f(u.t,reduce?0:t/1000);gl.uniform1f(u.s,it.seed);gl.uniform3fv(u.S,it.S);gl.uniform3fv(u.B,it.B);gl.uniform3fv(u.L,it.L);
+          gl.drawArrays(gl.TRIANGLE_STRIP,0,4);it.x.drawImage(G,0,0)})}
+        requestAnimationFrame(loop)})(0)}}
+})();
+
 </script>
 </body>
 </html>
