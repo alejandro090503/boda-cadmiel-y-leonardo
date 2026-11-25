@@ -14,7 +14,7 @@ async def main():
         pg.on('console', lambda m: m.type == 'error' and errs.append(m.text))
         await pg.add_init_script(SIL)
         await pg.goto(URL, wait_until='load')
-        await pg.screenshot(path=OUT + '/00-sobre.png')
+        await pg.wait_for_timeout(2200); await pg.screenshot(path=OUT + '/00-sobre.png')
         await pg.click('#sobreBtn')
         await pg.wait_for_timeout(400)
         await pg.evaluate("""()=>{const v=document.getElementById('sobreVideo');Object.defineProperty(v,'currentTime',{get(){return 8},configurable:true});v.dispatchEvent(new Event('timeupdate'));}""")
