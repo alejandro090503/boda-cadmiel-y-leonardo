@@ -1642,6 +1642,30 @@ section:not(.kx-live) .foil-text,footer:not(.kx-live) .foil-text{animation-play-
 .rsvp-para-note{font-family:'Jost',sans-serif!important;font-style:normal!important;font-weight:600!important;font-size:18px!important;color:var(--peach-accent)!important}
 .rsvp-pases-label{font-family:'Jost',sans-serif!important;font-style:normal!important;color:var(--peach-accent)!important}
 
+.sfade{position:absolute!important;z-index:-1!important}
+#family .ely-rosa,#family .ad{display:none!important}
+/* Adornos v2: flores de la paleta, más difuminadas */
+.ad.b{opacity:.42!important}.ad.b.o2{opacity:.34!important}
+#location .ad.e1{width:150px!important;left:-30px!important;bottom:-10px!important}
+#album .ad.e1{width:150px!important;right:-36px!important;top:20px!important}
+#itinerary .ad.m1{width:170px!important;right:-34px!important}
+#fecha .ad.r1{width:170px!important}
+
+/* Hero: se disuelve en la siguiente sección (como Katherine & Javier) */
+.h-ov{background:linear-gradient(to bottom,rgba(255,255,255,0) 15%,rgba(255,255,255,.45) 55%,#fff 100%)!important}
+.h-vig{display:none!important}
+#hero .sfade{display:none!important}
+.mono-k,.mono-m{color:var(--peach-accent)!important;-webkit-text-fill-color:var(--peach-accent)!important;background:none!important;text-shadow:0 0 18px rgba(255,255,255,.9)!important}
+.mono-amp{color:var(--gold-deep)!important;-webkit-text-fill-color:var(--gold-deep)!important;background:none!important;text-shadow:0 0 16px rgba(255,255,255,.9)!important}
+.h-names,.h-names.foil-text{color:var(--peach-accent)!important;-webkit-text-fill-color:var(--peach-accent)!important;text-shadow:0 0 14px rgba(255,255,255,.95),0 0 2px rgba(255,255,255,.9)!important}
+.h-names i{color:var(--gold-deep)!important;-webkit-text-fill-color:var(--gold-deep)!important}
+.h-meta{color:var(--peach-accent)!important;text-shadow:0 0 12px rgba(255,255,255,.95)!important}
+.h-meta b{color:var(--gold-deep)!important}
+.h-scroll span{color:var(--peach-accent)!important}
+.h-scroll-line{background:linear-gradient(to bottom,var(--peach-accent),transparent)!important}
+
+.h-monogram,.h-monogram.foil-text{background:none!important;-webkit-text-fill-color:initial!important}
+#hero .foil-text{background-image:none!important;background-color:transparent!important}
 html{overflow-x:clip}
 body>section,body>footer{overflow-x:clip}
 </style>
@@ -1706,8 +1730,8 @@ body>section,body>footer{overflow-x:clip}
 <!-- ═══════════════ 1.5. FECHA ══════════════════════════ -->
 <section id="fecha">
   <div class="ink-bg" data-k="1" aria-hidden="true"><img src="ink/top.webp" alt="" loading="eager" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f r1" src="assets/adorno-rosas.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b b1" src="assets/adorno-flor-azul-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
+  <img class="ad f r1" src="assets/flor-hortensia.webp" alt="" aria-hidden="true" onerror="this.remove()">
+<img class="ad b b1" src="assets/flor-peonia-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <img class="fch-bg" src="fondoKM.jpeg" alt="" loading="eager">
   <div class="fch-content">
     <p class="fch-headline">¡Nos casamos!</p>
@@ -1752,8 +1776,8 @@ body>section,body>footer{overflow-x:clip}
 <!-- ═══════════════ 3. UBICACIONES ═══════════════════ -->
 <section id="location">
   <div class="ink-bg fx" data-k="2" aria-hidden="true"><img src="ink/corner.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f s2 e1" src="assets/adorno-eucalipto.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b o2 b1" src="assets/adorno-rosas-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
+  <img class="ad f s2 e1" src="assets/flor-rosas.webp" alt="" aria-hidden="true" onerror="this.remove()">
+<img class="ad b o2 b1" src="assets/flor-hortensia-sola-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
 
   <div class="loc-wrap">
     <!-- Ceremonia + Recepción · mismo lugar -->
@@ -1924,8 +1948,8 @@ body>section,body>footer{overflow-x:clip}
 <!-- ═══════════════ 5. ITINERARIO ════════════════════ -->
 <section id="itinerary" aria-label="Itinerario">
   <div class="ink-bg fy" data-k="3" aria-hidden="true"><img src="ink/top.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f s3 m1" src="assets/adorno-rama.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b b1" src="assets/adorno-eucalipto-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
+  <img class="ad f s3 m1" src="assets/flor-peonia.webp" alt="" aria-hidden="true" onerror="this.remove()">
+<img class="ad b b1" src="assets/flor-rosas-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <span class="itx-lbl itx-rv">Nuestro día</span>
   <h2 class="itx-title itx-rv">Itinerario</h2>
   <div class="itx-rule itx-rv" aria-hidden="true"><i></i><b></b><i></i></div>
@@ -1977,8 +2001,8 @@ body>section,body>footer{overflow-x:clip}
 <!-- ═══════════════ 6. DRESS CODE ════════════════════ -->
 <section id="dresscode" aria-label="Código de vestimenta">
   <div class="ink-bg dim" data-k="4" aria-hidden="true"><img src="ink/footer.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f a1" src="assets/adorno-flor-azul.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b o2 fx b1" src="assets/adorno-rama-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
+  <img class="ad f a1" src="assets/flor-rosa-azul.webp" alt="" aria-hidden="true" onerror="this.remove()">
+<img class="ad b o2 fx b1" src="assets/flor-hortensia-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <span class="dcx-lbl dcx-rv">Vestimenta</span>
   <h2 class="dcx-title dcx-rv">Código de vestimenta</h2>
   <p class="dcx-formal dcx-rv">Formal 100%</p>
@@ -2055,8 +2079,8 @@ body>section,body>footer{overflow-x:clip}
 
 <section id="gifts" aria-label="Mesa de regalos">
   <div class="ink-bg" data-k="5" aria-hidden="true"><img src="ink/oval.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f s2 r1" src="assets/adorno-rosas.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b b1" src="assets/adorno-flor-azul-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
+  <img class="ad f s2 r1" src="assets/flor-hortensia-sola.webp" alt="" aria-hidden="true" onerror="this.remove()">
+<img class="ad b b1" src="assets/flor-peonia-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <div class="sbx-rain" id="sbxRain" aria-hidden="true"></div>
 
   <div class="sbx-stage" id="sbxStage">
@@ -2129,8 +2153,8 @@ body>section,body>footer{overflow-x:clip}
 <!-- ═══════════════ 8. ÁLBUM COMPARTIDO ══════════════ -->
 <section id="album">
   <div class="ink-bg fx" data-k="6" aria-hidden="true"><img src="ink/oval.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f s3 e1" src="assets/adorno-eucalipto.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b o2 b1" src="assets/adorno-rosas-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
+  <img class="ad f s3 e1" src="assets/flor-rosas.webp" alt="" aria-hidden="true" onerror="this.remove()">
+<img class="ad b o2 b1" src="assets/flor-rosa-azul-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <span class="lbl">Captura cada momento</span>
   <h2 class="ttl">Álbum Compartido</h2>
   <div class="gline"></div>
@@ -2173,8 +2197,6 @@ body>section,body>footer{overflow-x:clip}
 <!-- ═══════════════ 9. FAMILIA ════════════════════════ -->
 <section id="family">
   <div class="ink-bg fx" data-k="7" aria-hidden="true"><img src="ink/hero.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f fx m1" src="assets/adorno-rama.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad f s2 a1" src="assets/adorno-flor-azul.webp" alt="" aria-hidden="true" onerror="this.remove()">
 
   <!-- Bendición -->
   <div class="fam-blessing">
@@ -2238,8 +2260,8 @@ body>section,body>footer{overflow-x:clip}
 <!-- ═══════════════ 10. RSVP ════════════════════════ -->
 <section id="rsvp">
   <div class="ink-bg fx fy" data-k="8" aria-hidden="true"><img src="ink/corner.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></div>
-  <img class="ad f s3 r1" src="assets/adorno-rosas.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b o2 b1" src="assets/adorno-rama-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
+  <img class="ad f s3 r1" src="assets/flor-peonia.webp" alt="" aria-hidden="true" onerror="this.remove()">
+<img class="ad b o2 b1" src="assets/flor-hortensia-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
   <span class="lbl">Confirmación de asistencia</span>
   <h2 class="ttl">¿Nos acompañas?</h2>
   <div class="gline"></div>
