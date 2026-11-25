@@ -1832,6 +1832,135 @@ body>section,body>footer{isolation:isolate}
 /* Carrusel 3D: tarjetas que apenas se tocan */
 .wheel-card{backface-visibility:hidden;-webkit-backface-visibility:hidden}
 
+/* ===== R-regalos (caja que se expande, estilo Paola e Iván) ===== */
+/* ===== R-regalos.css — caja de regalo + carrusel (clases rg-*) ===== */
+#gifts.rg-sec{
+  position:relative;overflow:hidden;text-align:center;padding:68px 22px 150px;
+  background:radial-gradient(100% 40% at 50% 0%,#FFFFFF 0%,rgba(255,255,255,0) 70%),linear-gradient(180deg,#FFFFFF 0%,#F8F4EC 100%);
+}
+#gifts.rg-sec > .lbl{color:#7A5A33;font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:4px}
+#gifts.rg-sec > .ttl{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(44px,12vw,54px);line-height:1.3;color:#1F2E4A;padding:0 .15em;margin:6px 0 0;overflow:visible}
+#gifts.rg-sec > .gline{margin:14px auto 20px}
+#gifts .rg-sub{font-family:'Jost',sans-serif;font-weight:500;font-size:17px;line-height:1.65;color:#2B2B2B;max-width:320px;margin:0 auto}
+
+/* --- La caja --- */
+#gifts .rg-stage{position:relative;margin:34px auto 0;max-width:420px;min-height:250px;display:flex;align-items:center;justify-content:center}
+#gifts .rg-stage-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+#gifts .rg-confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.rg-box{
+  position:relative;width:176px;cursor:pointer;background:none;border:0;padding:0;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.rg-box:hover{transform:translateY(-8px) scale(1.03)}
+.rg-box:focus-visible{outline:2px solid #2F5E7E;outline-offset:10px;border-radius:6px}
+.rg-box.is-open{pointer-events:none}
+.rg-box svg{width:100%;height:auto;display:block;filter:drop-shadow(0 16px 26px rgba(31,46,74,.3))}
+.rg-lid{transform-origin:50% 100%;transition:transform .6s cubic-bezier(.34,1.4,.5,1),opacity .55s ease}
+.rg-box.is-open .rg-lid{transform:translateY(-52px) rotate(-14deg);opacity:0}
+.rg-cta{
+  display:block;margin-top:20px;font-family:'Jost',sans-serif;font-weight:600;font-size:15px;
+  letter-spacing:.28em;text-transform:uppercase;padding-left:.28em;color:#7A5A33;
+  animation:rgPulse 2.6s ease-in-out infinite;transition:opacity .4s;text-shadow:0 0 6px rgba(255,255,255,.95),0 0 14px rgba(255,255,255,.85);
+}
+@keyframes rgPulse{0%,100%{opacity:.65}50%{opacity:1}}
+.rg-cta.is-hidden{opacity:0;animation:none}
+
+/* --- Modal (por encima del menú #elyMenuBtn z950 y del vinilo z900) --- */
+.rg-backdrop{
+  position:fixed;top:0;right:0;bottom:0;left:0;height:100vh;height:100dvh;z-index:9500;
+  background:rgba(15,26,46,.55);
+  backdrop-filter:blur(14px) saturate(1.05);-webkit-backdrop-filter:blur(14px) saturate(1.05);
+  opacity:0;pointer-events:none;visibility:hidden;transition:opacity .45s ease,visibility 0s .45s;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;box-sizing:border-box;
+  -webkit-transform:translateZ(0);transform:translateZ(0);
+}
+.rg-backdrop.is-open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .45s ease,visibility 0s}
+body.rg-locked{overflow:hidden;overscroll-behavior:none}
+.rg-card{
+  position:relative;width:100%;max-width:440px;box-sizing:border-box;
+  max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:#F6F2EC;border:1px solid rgba(169,130,79,.55);border-radius:4px;
+  padding:38px 0 24px;
+  box-shadow:0 34px 90px rgba(10,18,34,.45),inset 0 0 0 1px rgba(255,255,255,.5);
+  opacity:0;transform:translateY(26px) scale(.94);
+  transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.rg-backdrop.is-open .rg-card{opacity:1;transform:none}
+.rg-card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(169,130,79,.3);border-radius:2px;pointer-events:none}
+.rg-eyebrow{font-family:'Jost',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;text-transform:uppercase;padding-left:.3em;color:#7A5A33;text-align:center}
+.rg-close{
+  position:absolute;top:10px;right:10px;z-index:3;width:44px;height:44px;border-radius:50%;padding:0;
+  border:1px solid rgba(169,130,79,.55);background:#F6F2EC;color:#1F2E4A;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;
+  transition:background .3s,color .3s,transform .3s;
+}
+.rg-close:hover{background:#1F2E4A;color:#fff;transform:rotate(90deg)}
+.rg-close:focus-visible{outline:2px solid #2F5E7E;outline-offset:3px}
+.rg-close svg{width:16px;height:16px}
+
+/* --- Carrusel (scroll-snap nativo; gestos y foco) --- */
+.rg-viewport{
+  position:relative;overflow-x:auto;overflow-y:hidden;margin-top:6px;
+  scroll-snap-type:x mandatory;-webkit-scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;touch-action:pan-x pan-y;cursor:grab;outline:none;
+  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;overscroll-behavior-x:contain;
+}
+.rg-viewport::-webkit-scrollbar{display:none}
+.rg-viewport:focus-visible{outline:2px solid #2F5E7E;outline-offset:-3px}
+.rg-track{display:flex;align-items:stretch;min-width:100%}
+.rg-slide{
+  flex:0 0 100%;width:100%;min-width:100%;box-sizing:border-box;scroll-snap-align:center;-webkit-scroll-snap-align:center;
+  padding:22px 26px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+}
+.rg-slide a,.rg-slide button{touch-action:manipulation;-webkit-user-select:auto;user-select:auto}
+.rg-slide img{-webkit-user-drag:none;user-drag:none;pointer-events:none}
+.rg-logo{width:120px;height:40px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.rg-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.rg-logo svg{height:40px;width:auto;display:block}
+.rg-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:30px;line-height:1.15;color:#1F2E4A;margin-bottom:10px}
+.rg-desc{font-family:'Jost',sans-serif;font-weight:500;font-size:17px;line-height:1.6;color:#2B2B2B;margin-bottom:22px;max-width:300px}
+.rg-desc b{font-weight:600;color:#1F2E4A;letter-spacing:.08em}
+.rg-bank{font-family:'Jost',sans-serif;font-weight:600;font-size:16px;letter-spacing:.2em;text-transform:uppercase;color:#2F5E7E;padding-left:.2em;margin-bottom:12px}
+.rg-lbl{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;color:#2B2B2B;margin-bottom:4px}
+.rg-clabe{font-family:'Jost',sans-serif;font-weight:600;font-size:clamp(17px,5.2vw,21px);letter-spacing:.05em;color:#1F2E4A;font-variant-numeric:tabular-nums;white-space:nowrap;margin-bottom:18px}
+.rg-btn{
+  display:inline-block;box-sizing:border-box;max-width:100%;padding:13px 28px;min-height:46px;
+  background:#1F2E4A;color:#FFFFFF;border:1px solid #1F2E4A;border-radius:3px;
+  font-family:'Jost',sans-serif;font-weight:600;font-size:16px;letter-spacing:.05em;text-decoration:none;cursor:pointer;
+  -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;
+  transition:background .3s,border-color .3s,transform .3s;
+}
+.rg-btn:hover{background:#2F5E7E;border-color:#2F5E7E;transform:translateY(-1px)}
+.rg-btn:focus-visible{outline:2px solid #2F5E7E;outline-offset:3px}
+.rg-copy.is-copied{background:#7A5A33;border-color:#7A5A33}
+.rg-ok{display:block;min-height:22px;margin-top:8px;font-family:'Jost',sans-serif;font-weight:600;font-size:16px;color:#7A5A33}
+
+.rg-nav{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px}
+.rg-arrow{
+  width:44px;height:44px;border-radius:50%;padding:0;border:1px solid rgba(169,130,79,.6);background:transparent;color:#7A5A33;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  -webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;
+  transition:background .3s,color .3s,transform .3s;
+}
+.rg-arrow:hover{background:#7A5A33;color:#fff;transform:scale(1.06)}
+.rg-arrow:focus-visible{outline:2px solid #2F5E7E;outline-offset:3px}
+.rg-arrow:disabled{cursor:default;opacity:.45}
+.rg-arrow:disabled:hover{background:transparent;color:#7A5A33;transform:none}
+.rg-arrow svg{width:16px;height:16px}
+.rg-dots{display:flex;gap:2px}
+.rg-dot{position:relative;width:26px;height:44px;padding:0;border:0;background:none;cursor:pointer;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;outline:none}
+.rg-dot::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;border:1px solid #7A5A33;background:transparent;transition:background .3s,transform .3s}
+.rg-dot.is-active::after{background:#A9824F;border-color:#7A5A33;transform:scale(1.3)}
+.rg-dot:focus-visible::after{outline:2px solid #2F5E7E;outline-offset:3px}
+.rg-hint{font-family:'Jost',sans-serif;font-weight:500;font-size:16px;color:#4A5568;margin-top:4px;text-align:center}
+@media(max-width:360px){.rg-slide{padding-left:18px;padding-right:18px}.rg-title{font-size:27px}}
+@media (prefers-reduced-motion:reduce){
+  .rg-cta{animation:none}
+  .rg-card,.rg-backdrop,.rg-lid,.rg-box{transition:none}
+}
 html{overflow-x:clip}
 body>section,body>footer{overflow-x:clip}
 </style>
@@ -2276,74 +2405,93 @@ body>section,body>footer{overflow-x:clip}
 </section>
 
 
-<section id="gifts" aria-label="Mesa de regalos">
+<section id="gifts" class="rg-sec" aria-label="Mesa de regalos">
   <div class="fl-bg" aria-hidden="true"></div>
-  <img class="ad f s2 r1" src="assets/flor-hortensia-sola.webp" alt="" aria-hidden="true" onerror="this.remove()">
-<img class="ad b b1" src="assets/flor-peonia-b.webp" alt="" aria-hidden="true" onerror="this.remove()">
-  <div class="sbx-rain" id="sbxRain" aria-hidden="true"></div>
+  <span class="lbl">Detalles con amor</span>
+  <h2 class="ttl">Mesa de regalos</h2>
+  <div class="gline"></div>
+  <p class="rg-sub">Tu presencia es lo más importante para nosotros. Si además deseas tener un detalle con nosotros, estas son las opciones.</p>
 
-  <div class="sbx-stage" id="sbxStage">
-    <span class="sbx-lbl">Detalles con amor</span>
-    <h2 class="sbx-title">Mesa de regalos</h2>
-    <div class="sbx-rule" aria-hidden="true"><i></i><b></b><i></i></div>
-    <p class="sbx-sub">Tu presencia es lo más importante para nosotros. Si además deseas tener un detalle con nosotros, estas son las opciones.</p>
-
-    <h3 class="sbx-h3">Lluvia de sobres</h3>
-    <button class="sbx-env" id="sbxEnv" type="button" aria-label="Sobre de regalo, toca para abrir" aria-expanded="false" aria-controls="sbxOpen">
-      <span class="sbx-body" id="sbxBody">
-        <svg class="sbx-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
+  <div class="rg-stage">
+    <canvas class="rg-confetti" id="rgConfetti" aria-hidden="true"></canvas>
+    <div class="rg-stage-in">
+      <button class="rg-box" id="rgBox" type="button" aria-label="Abrir las opciones de regalo" aria-expanded="false" aria-controls="rgBackdrop">
+        <svg viewBox="0 0 200 190" fill="none" aria-hidden="true">
           <defs>
-            <linearGradient id="sbxPaper" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F7EEDC"/><stop offset="1" stop-color="#FFFCF5"/></linearGradient>
+            <linearGradient id="rgShade" x1="26" y1="72" x2="174" y2="176" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffffff" stop-opacity=".16"/><stop offset="1" stop-color="#000000" stop-opacity=".25"/>
+            </linearGradient>
+            <linearGradient id="rgRibbon" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#D9C3A0"/><stop offset=".5" stop-color="#A9824F"/><stop offset="1" stop-color="#8E6A3C"/>
+            </linearGradient>
           </defs>
-          <rect x="18" y="52" width="224" height="132" rx="8" fill="url(#sbxPaper)" stroke="#A9824F" stroke-width="1.5"/>
-          <path d="M18 184 L130 110 L242 184" stroke="#A9824F" stroke-opacity=".55" stroke-width="1" fill="none"/>
+          <rect x="26" y="72" width="148" height="104" rx="4" fill="#1F2E4A"/>
+          <rect x="26" y="72" width="148" height="104" rx="4" fill="url(#rgShade)"/>
+          <rect x="88" y="72" width="24" height="104" fill="url(#rgRibbon)"/>
+          <rect x="26" y="112" width="148" height="15" fill="url(#rgRibbon)"/>
+          <rect x="26.7" y="72.7" width="146.6" height="102.6" rx="3.3" stroke="#7A5A33" stroke-width="1.4"/>
+          <g class="rg-lid">
+            <rect x="16" y="54" width="168" height="26" rx="4" fill="#2A3F63"/>
+            <rect x="16" y="54" width="168" height="26" rx="4" fill="url(#rgShade)"/>
+            <rect x="16.7" y="54.7" width="166.6" height="24.6" rx="3.3" stroke="#7A5A33" stroke-width="1.4"/>
+            <rect x="88" y="54" width="24" height="26" fill="url(#rgRibbon)"/>
+            <path d="M100 54 C100 40 84 26 70 32 C58 37 62 52 78 54 Z" fill="url(#rgRibbon)" stroke="#7A5A33" stroke-width="1.2"/>
+            <path d="M100 54 C100 40 116 26 130 32 C142 37 138 52 122 54 Z" fill="url(#rgRibbon)" stroke="#7A5A33" stroke-width="1.2"/>
+            <circle cx="100" cy="52" r="8" fill="#D9C3A0" stroke="#7A5A33" stroke-width="1.2"/>
+          </g>
         </svg>
-        <span class="sbx-flap" aria-hidden="true">
-          <svg class="sbx-face sbx-front" viewBox="0 0 224 86" preserveAspectRatio="none">
-            <defs><linearGradient id="sbxFlapF" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F5EAD2"/><stop offset="1" stop-color="#FFFDF8"/></linearGradient></defs>
-            <path d="M0 0 L112 86 L224 0 Z" fill="url(#sbxFlapF)" stroke="#A9824F" stroke-width="1.6" stroke-linejoin="round"/>
-          </svg>
-          <svg class="sbx-face sbx-back" viewBox="0 0 224 86" preserveAspectRatio="none">
-            <path d="M0 0 L112 86 L224 0 Z" fill="#E9DBBE" stroke="#A9824F" stroke-width="1.6" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <svg class="sbx-seal" viewBox="0 0 60 60" aria-hidden="true">
-          <circle cx="30" cy="30" r="28" fill="#1F2E4A"/>
-          <circle cx="30" cy="30" r="28" fill="none" stroke="#0F1A2E" stroke-width="2" opacity=".5"/>
-          <circle cx="30" cy="30" r="21.5" fill="none" stroke="#D9C3A0" stroke-width="1.1" opacity=".9"/>
-          <text x="30" y="37.5" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="22" fill="#E7D3AA">L&amp;C</text>
-        </svg>
-      </span>
-    </button>
-    <div class="sbx-open" id="sbxOpen" aria-live="polite">
-      <div class="sbx-open-in">
-        <svg class="sbx-mail" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <rect x="8" y="22" width="36" height="24" rx="5"/><path d="M8 30 Q26 38 44 30"/><rect x="18" y="8" width="16" height="16" rx="2"/><path d="M18 8 Q26 3 34 8"/>
-        </svg>
-        <p class="sbx-open-t">Tu presencia es nuestro regalo</p>
-        <p class="sbx-open-d">El día del evento habrá un buzón donde podrás depositar tu sobre con mucho cariño.</p>
-      </div>
+      </button>
+      <span class="rg-cta" id="rgCta">Toca el regalo</span>
     </div>
-    <button class="sbx-hint" id="sbxHint" type="button">Toca para abrir</button>
   </div>
 
-  <div class="sbx-cards">
-    <div class="sbx-card">
-      <svg class="sbx-ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M12 8v13M3 13h18"/><path d="M12 8C10 8 7.5 7 7.5 5.2 7.5 3.8 9 3.2 10.3 4c1 .7 1.7 2.2 1.7 4zM12 8c2 0 4.5-1 4.5-2.8 0-1.4-1.5-2-2.8-1.2-1 .7-1.7 2.2-1.7 4z"/></svg>
-      <span class="sbx-ck">Mesa de regalos</span>
-      <p class="sbx-cn">Liverpool</p>
-      <p class="sbx-cl">Número de evento</p>
-      <p class="sbx-num">60060918</p>
-      <a class="sbx-btn" href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60060918" target="_blank" rel="noopener">Ver mesa de regalos</a>
-    </div>
+  <div class="rg-backdrop" id="rgBackdrop" role="dialog" aria-modal="true" aria-label="Opciones de regalo">
+    <div class="rg-card" id="rgCard">
+      <button class="rg-close" id="rgClose" type="button" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="rg-eyebrow">Elige una opción</div>
+      <div class="rg-viewport" id="rgViewport">
+        <div class="rg-track" id="rgTrack">
 
-    <div class="sbx-card">
-      <svg class="sbx-ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10.5h19M6 15h4"/></svg>
-      <span class="sbx-ck">Transferencia bancaria</span>
-      <p class="sbx-cl">CLABE interbancaria</p>
-      <p class="sbx-num" id="sbxClabe" aria-label="CLABE 6 3 8 1 8 0 0 1 0 1 3 3 4 3 4 1 3 9">6381&nbsp;8001&nbsp;0133&nbsp;4341&nbsp;39</p>
-      <button class="sbx-btn" id="sbxCopy" type="button">Copiar CLABE</button>
-      <span class="sbx-ok" id="sbxOk" role="status" aria-live="polite"></span>
+          <div class="rg-slide">
+            <div class="rg-logo"><img src="assets/logo-liverpool.png" alt="Liverpool" width="480" height="114" decoding="async"></div>
+            <div class="rg-title">Mesa de regalos</div>
+            <div class="rg-desc">Evento <b>60060918</b></div>
+            <a class="rg-btn" href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60060918" target="_blank" rel="noopener">Ver mesa de regalos</a>
+          </div>
+
+          <div class="rg-slide">
+            <div class="rg-logo"><img src="assets/logo-nu.png" alt="Nu México" width="290" height="160" decoding="async"></div>
+            <div class="rg-title">Transferencia</div>
+            <div class="rg-bank">Nu México</div>
+            <div class="rg-lbl">CLABE interbancaria</div>
+            <div class="rg-clabe" aria-label="CLABE 6 3 8 1 8 0 0 1 0 1 3 3 4 3 4 1 3 9">6381&nbsp;8001&nbsp;0133&nbsp;4341&nbsp;39</div>
+            <button class="rg-btn rg-copy" id="rgCopy" type="button" data-clabe="638180010133434139">Copiar CLABE</button>
+            <span class="rg-ok" id="rgOk" role="status" aria-live="polite"></span>
+          </div>
+
+          <div class="rg-slide">
+            <div class="rg-logo">
+              <svg viewBox="0 0 64 44" fill="none" stroke="#7A5A33" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+                <rect x="4" y="6" width="56" height="34" rx="4" fill="#F6F2EC"/>
+                <path d="M4 10 L32 28 L60 10"/>
+                <path d="M4 38 L24 22 M60 38 L40 22"/>
+                <circle cx="32" cy="28" r="3.6" fill="#1F2E4A" stroke="#1F2E4A"/>
+              </svg>
+            </div>
+            <div class="rg-title">Lluvia de sobres</div>
+            <div class="rg-desc">Tu sobre será siempre bienvenido el día del evento.</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="rg-nav">
+        <button class="rg-arrow" id="rgPrev" type="button" aria-label="Opción anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <div class="rg-dots" id="rgDots"></div>
+        <button class="rg-arrow" id="rgNext" type="button" aria-label="Siguiente opción"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div class="rg-hint">Desliza para ver más</div>
     </div>
   </div>
 </section>
@@ -4422,6 +4570,278 @@ function ambientWind(){
         requestAnimationFrame(loop)})(0)}}
 })();
 
+</script>
+<script>/* R-regalos.js */
+(function(){
+  var box    = document.getElementById('rgBox');
+  var cta    = document.getElementById('rgCta');
+  var reveal = document.getElementById('rgBackdrop');
+  var closeB = document.getElementById('rgClose');
+  var track  = document.getElementById('rgTrack');
+  var viewp  = document.getElementById('rgViewport');
+  var dotsEl = document.getElementById('rgDots');
+  var canvas = document.getElementById('rgConfetti');
+  var prevBtn = document.getElementById('rgPrev');
+  var nextBtn = document.getElementById('rgNext');
+  if(!box || !reveal || !track || !viewp) return;
+
+  var slides = track.querySelectorAll('.rg-slide');
+  var total  = slides.length;
+  var idx    = 0;
+
+  /* ---------- Puntos ---------- */
+  for(var i=0;i<total;i++){
+    (function(n){
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'rg-dot' + (n===0?' is-active':'');
+      d.setAttribute('aria-label','Opción ' + (n+1) + ' de ' + total);
+      d.addEventListener('click', function(){ goTo(n); });
+      dotsEl.appendChild(d);
+    })(i);
+  }
+  var dots = dotsEl.querySelectorAll('.rg-dot');
+
+  function layoutSlides(){
+    var h = 0, a, b;
+    for(a=0;a<slides.length;a++){ slides[a].style.height = 'auto'; h = Math.max(h, slides[a].scrollHeight); }
+    for(b=0;b<slides.length;b++) slides[b].style.height = h + 'px';
+    goTo(idx, 'auto');
+  }
+  window.addEventListener('resize', function(){ if(reveal.classList.contains('is-open')) layoutSlides(); });
+
+  function syncUI(){
+    var k, m, q, f;
+    for(k=0;k<dots.length;k++) dots[k].classList.toggle('is-active', k===idx);
+    for(m=0;m<slides.length;m++){
+      slides[m].setAttribute('aria-hidden', m===idx ? 'false' : 'true');
+      f = slides[m].querySelectorAll('a,button');
+      for(q=0;q<f.length;q++){
+        if(m===idx) f[q].removeAttribute('tabindex'); else f[q].setAttribute('tabindex','-1');
+      }
+    }
+    prevBtn.disabled = (idx === 0);
+    nextBtn.disabled = (idx === total-1);
+  }
+
+  function goTo(n, behavior){
+    idx = Math.max(0, Math.min(total-1, n));
+    var target = idx * viewp.clientWidth;
+    try{ viewp.scrollTo({ left: target, behavior: behavior || 'smooth' }); }
+    catch(e){ viewp.scrollLeft = target; }
+    // red de seguridad si el scroll suave no se aplica
+    setTimeout(function(){
+      if(Math.abs(viewp.scrollLeft - target) > 4) viewp.scrollLeft = target;
+    }, 420);
+    syncUI();
+  }
+
+  prevBtn.addEventListener('click', function(){ goTo(idx-1); });
+  nextBtn.addEventListener('click', function(){ goTo(idx+1); });
+
+  // El scroll nativo (dedo, trackpad) manda: se lee la posición y se sincroniza
+  function syncFromScroll(){
+    var n = Math.round(viewp.scrollLeft / Math.max(1, viewp.clientWidth));
+    n = Math.max(0, Math.min(total-1, n));
+    if(n !== idx){ idx = n; syncUI(); }
+  }
+  var scrollTick = null;
+  viewp.addEventListener('scroll', function(){
+    if(scrollTick) clearTimeout(scrollTick);
+    scrollTick = setTimeout(syncFromScroll, 90);
+  }, {passive:true});
+  viewp.addEventListener('scrollend', syncFromScroll);
+  viewp.addEventListener('touchend', function(){
+    setTimeout(syncFromScroll, 160);
+    setTimeout(syncFromScroll, 520);
+  }, {passive:true});
+
+  /* Arrastre con ratón (escritorio) */
+  var mDown = false, mStartX = 0, mStartScroll = 0, moved = 0;
+  viewp.addEventListener('mousedown', function(e){
+    if(e.target.closest('a,button')) return;
+    mDown = true; moved = 0;
+    mStartX = e.clientX; mStartScroll = viewp.scrollLeft;
+    viewp.style.cursor = 'grabbing';
+    viewp.style.scrollSnapType = 'none';
+  });
+  window.addEventListener('mousemove', function(e){
+    if(!mDown) return;
+    var d = e.clientX - mStartX;
+    moved = Math.abs(d);
+    if(moved > 3) e.preventDefault();
+    viewp.scrollLeft = mStartScroll - d;
+  });
+  window.addEventListener('mouseup', function(){
+    if(!mDown) return;
+    mDown = false; viewp.style.cursor = ''; viewp.style.scrollSnapType = '';
+    goTo(Math.round(viewp.scrollLeft / Math.max(1, viewp.clientWidth)));
+  });
+  viewp.addEventListener('click', function(e){
+    if(moved > 8){ e.preventDefault(); e.stopPropagation(); moved = 0; }
+  }, true);
+
+  /* Teclado */
+  viewp.setAttribute('tabindex','0');
+  viewp.setAttribute('role','group');
+  viewp.setAttribute('aria-label','Opciones de regalo');
+  viewp.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowLeft'){  e.preventDefault(); goTo(idx-1); }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); goTo(idx+1); }
+  });
+
+  /* ---------- Copiar CLABE ---------- */
+  var copyB = document.getElementById('rgCopy');
+  var okEl  = document.getElementById('rgOk');
+  var okTimer = null;
+  function copiado(ok){
+    var msg = ok ? 'CLABE copiada' : 'No se pudo copiar, selecciónala a mano';
+    if(okEl) okEl.textContent = msg;
+    if(copyB && ok){ copyB.classList.add('is-copied'); copyB.textContent = 'CLABE copiada'; }
+    try{ if(typeof window.toast === 'function') window.toast(msg); }catch(e){}
+    clearTimeout(okTimer);
+    okTimer = setTimeout(function(){
+      if(okEl) okEl.textContent = '';
+      if(copyB){ copyB.classList.remove('is-copied'); copyB.textContent = 'Copiar CLABE'; }
+    }, 2400);
+  }
+  function respaldo(txt){
+    var ok = false;
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.setAttribute('readonly','');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select(); ta.setSelectionRange(0, txt.length);
+      ok = document.execCommand('copy');
+      ta.parentNode.removeChild(ta);
+    }catch(e){ ok = false; }
+    copiado(ok);
+  }
+  if(copyB) copyB.addEventListener('click', function(){
+    var txt = copyB.getAttribute('data-clabe') || '';
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){ copiado(true); }, function(){ respaldo(txt); });
+    } else respaldo(txt);
+  });
+
+  /* ---------- Confeti ---------- */
+  function burst(){
+    if(!canvas || !canvas.getContext) return;
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var stage = canvas.parentElement;
+    var W = stage.offsetWidth, H = stage.offsetHeight;
+    canvas.width = W*dpr; canvas.height = H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var colors = ['#A9824F','#D9C3A0','#7A5A33','#2F5E7E','#1F2E4A','#F6F2EC','#7E98B4'];
+    var parts = [], cx = W/2, cy = H/2, n = window.innerWidth < 520 ? 70 : 120, i;
+    for(i=0;i<n;i++){
+      var a = (Math.PI * 2 * i / n) + (i % 7) * 0.11;
+      var sp = 3.4 + (i % 11) * 0.62;
+      parts.push({
+        x:cx, y:cy,
+        vx: Math.cos(a) * sp * (0.6 + (i%5)*0.14),
+        vy: Math.sin(a) * sp * (0.6 + (i%3)*0.2) - 3.6,
+        w: 5 + (i%4)*2.4, h: 3 + (i%3)*2,
+        rot: (i%360) * 0.0175, vr: ((i%2?1:-1)) * (0.06 + (i%5)*0.02),
+        c: colors[i % colors.length], life: 1
+      });
+    }
+    var t0 = null;
+    function frame(ts){
+      if(t0 === null) t0 = ts;
+      var el = (ts - t0) / 1000, alive = false, j, p;
+      ctx.clearRect(0,0,W,H);
+      for(j=0;j<parts.length;j++){
+        p = parts[j];
+        p.vy += 0.14; p.vx *= 0.992;
+        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        p.life = Math.max(0, 1 - el/2.6);
+        if(p.life > 0 && p.y < H + 40){
+          alive = true;
+          ctx.save();
+          ctx.globalAlpha = p.life;
+          ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+          ctx.fillStyle = p.c; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+          ctx.restore();
+        }
+      }
+      if(alive) requestAnimationFrame(frame); else ctx.clearRect(0,0,W,H);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- Apertura / cierre ---------- */
+  var isOpen = false, viaTeclado = false;
+
+  // El modal se monta en <body>: ningún ancestro con contain/transform rompe su position:fixed
+  if(reveal.parentElement !== document.body) document.body.appendChild(reveal);
+
+  // Bloqueo de scroll compatible con iOS
+  var savedScrollY = 0;
+  function lockScroll(){
+    var s = document.body.style;
+    savedScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    s.position = 'fixed'; s.top = (-savedScrollY) + 'px'; s.left = '0'; s.right = '0'; s.width = '100%';
+    document.body.classList.add('rg-locked');
+  }
+  function unlockScroll(){
+    var s = document.body.style;
+    document.body.classList.remove('rg-locked');
+    s.position = ''; s.top = ''; s.left = ''; s.right = ''; s.width = '';
+    // scroll-behavior:smooth en html haría que el regreso se anime: lo forzamos instantáneo
+    var de = document.documentElement, prev = de.style.scrollBehavior;
+    de.style.scrollBehavior = 'auto';
+    window.scrollTo(0, savedScrollY);
+    de.style.scrollBehavior = prev;
+  }
+
+  function openGift(){
+    if(isOpen) return;
+    isOpen = true;
+    try{ window.__elyStopAuto && window.__elyStopAuto(); }catch(e){}
+    box.classList.add('is-open');
+    box.setAttribute('aria-expanded','true');
+    if(cta) cta.classList.add('is-hidden');
+    burst();
+    setTimeout(function(){
+      reveal.classList.add('is-open');
+      lockScroll();
+      requestAnimationFrame(function(){
+        layoutSlides();
+        goTo(0, 'auto');
+        if(viaTeclado && closeB) closeB.focus();
+      });
+    }, 240);
+  }
+
+  function closeGift(){
+    if(!isOpen) return;
+    isOpen = false;
+    reveal.classList.remove('is-open');
+    unlockScroll();
+    setTimeout(function(){
+      box.classList.remove('is-open');
+      box.setAttribute('aria-expanded','false');
+      if(cta) cta.classList.remove('is-hidden');
+      goTo(0, 'auto');
+    }, 420);
+    if(viaTeclado) box.focus();
+    viaTeclado = false;
+  }
+
+  box.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' ') viaTeclado = true; });
+  box.addEventListener('mousedown',  function(){ viaTeclado = false; });
+  box.addEventListener('touchstart', function(){ viaTeclado = false; }, {passive:true});
+  box.addEventListener('click', openGift);
+  if(closeB) closeB.addEventListener('click', closeGift);
+  reveal.addEventListener('click', function(e){ if(e.target === reveal) closeGift(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen) closeGift(); });
+
+  syncUI();
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,91 @@
+<!-- INSERTAR: reemplaza <section id="gifts"> completa -->
+<section id="gifts" class="rg-sec" aria-label="Mesa de regalos">
+  <div class="fl-bg" aria-hidden="true"></div>
+  <span class="lbl">Detalles con amor</span>
+  <h2 class="ttl">Mesa de regalos</h2>
+  <div class="gline"></div>
+  <p class="rg-sub">Tu presencia es lo más importante para nosotros. Si además deseas tener un detalle con nosotros, estas son las opciones.</p>
+
+  <div class="rg-stage">
+    <canvas class="rg-confetti" id="rgConfetti" aria-hidden="true"></canvas>
+    <div class="rg-stage-in">
+      <button class="rg-box" id="rgBox" type="button" aria-label="Abrir las opciones de regalo" aria-expanded="false" aria-controls="rgBackdrop">
+        <svg viewBox="0 0 200 190" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="rgShade" x1="26" y1="72" x2="174" y2="176" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffffff" stop-opacity=".16"/><stop offset="1" stop-color="#000000" stop-opacity=".25"/>
+            </linearGradient>
+            <linearGradient id="rgRibbon" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#D9C3A0"/><stop offset=".5" stop-color="#A9824F"/><stop offset="1" stop-color="#8E6A3C"/>
+            </linearGradient>
+          </defs>
+          <rect x="26" y="72" width="148" height="104" rx="4" fill="#1F2E4A"/>
+          <rect x="26" y="72" width="148" height="104" rx="4" fill="url(#rgShade)"/>
+          <rect x="88" y="72" width="24" height="104" fill="url(#rgRibbon)"/>
+          <rect x="26" y="112" width="148" height="15" fill="url(#rgRibbon)"/>
+          <rect x="26.7" y="72.7" width="146.6" height="102.6" rx="3.3" stroke="#7A5A33" stroke-width="1.4"/>
+          <g class="rg-lid">
+            <rect x="16" y="54" width="168" height="26" rx="4" fill="#2A3F63"/>
+            <rect x="16" y="54" width="168" height="26" rx="4" fill="url(#rgShade)"/>
+            <rect x="16.7" y="54.7" width="166.6" height="24.6" rx="3.3" stroke="#7A5A33" stroke-width="1.4"/>
+            <rect x="88" y="54" width="24" height="26" fill="url(#rgRibbon)"/>
+            <path d="M100 54 C100 40 84 26 70 32 C58 37 62 52 78 54 Z" fill="url(#rgRibbon)" stroke="#7A5A33" stroke-width="1.2"/>
+            <path d="M100 54 C100 40 116 26 130 32 C142 37 138 52 122 54 Z" fill="url(#rgRibbon)" stroke="#7A5A33" stroke-width="1.2"/>
+            <circle cx="100" cy="52" r="8" fill="#D9C3A0" stroke="#7A5A33" stroke-width="1.2"/>
+          </g>
+        </svg>
+      </button>
+      <span class="rg-cta" id="rgCta">Toca el regalo</span>
+    </div>
+  </div>
+
+  <div class="rg-backdrop" id="rgBackdrop" role="dialog" aria-modal="true" aria-label="Opciones de regalo">
+    <div class="rg-card" id="rgCard">
+      <button class="rg-close" id="rgClose" type="button" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="rg-eyebrow">Elige una opción</div>
+      <div class="rg-viewport" id="rgViewport">
+        <div class="rg-track" id="rgTrack">
+
+          <div class="rg-slide">
+            <div class="rg-logo"><img src="assets/logo-liverpool.png" alt="Liverpool" width="480" height="114" decoding="async"></div>
+            <div class="rg-title">Mesa de regalos</div>
+            <div class="rg-desc">Evento <b>60060918</b></div>
+            <a class="rg-btn" href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60060918" target="_blank" rel="noopener">Ver mesa de regalos</a>
+          </div>
+
+          <div class="rg-slide">
+            <div class="rg-logo"><img src="assets/logo-nu.png" alt="Nu México" width="290" height="160" decoding="async"></div>
+            <div class="rg-title">Transferencia</div>
+            <div class="rg-bank">Nu México</div>
+            <div class="rg-lbl">CLABE interbancaria</div>
+            <div class="rg-clabe" aria-label="CLABE 6 3 8 1 8 0 0 1 0 1 3 3 4 3 4 1 3 9">6381&nbsp;8001&nbsp;0133&nbsp;4341&nbsp;39</div>
+            <button class="rg-btn rg-copy" id="rgCopy" type="button" data-clabe="638180010133434139">Copiar CLABE</button>
+            <span class="rg-ok" id="rgOk" role="status" aria-live="polite"></span>
+          </div>
+
+          <div class="rg-slide">
+            <div class="rg-logo">
+              <svg viewBox="0 0 64 44" fill="none" stroke="#7A5A33" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+                <rect x="4" y="6" width="56" height="34" rx="4" fill="#F6F2EC"/>
+                <path d="M4 10 L32 28 L60 10"/>
+                <path d="M4 38 L24 22 M60 38 L40 22"/>
+                <circle cx="32" cy="28" r="3.6" fill="#1F2E4A" stroke="#1F2E4A"/>
+              </svg>
+            </div>
+            <div class="rg-title">Lluvia de sobres</div>
+            <div class="rg-desc">Tu sobre será siempre bienvenido el día del evento.</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="rg-nav">
+        <button class="rg-arrow" id="rgPrev" type="button" aria-label="Opción anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <div class="rg-dots" id="rgDots"></div>
+        <button class="rg-arrow" id="rgNext" type="button" aria-label="Siguiente opción"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div class="rg-hint">Desliza para ver más</div>
+    </div>
+  </div>
+</section>
